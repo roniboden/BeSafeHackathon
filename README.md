@@ -1,4 +1,4 @@
-# QueenB X AppsFlyer - BeSafe Hackathon 2025
+# QueenB X AppsFlyer - BeSafe Hackathon 2026
 
 This project template is designed for junior developers aimed at gaining hands-on experience in full-stack development. 
 This project includes a Node.js server with Express and a React client (powered by Vite), providing an opportunity to engage in frontend development, backend development, and API integration.
