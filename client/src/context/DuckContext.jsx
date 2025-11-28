@@ -17,7 +17,9 @@ const DuckProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        getRandomDuck();
+        queueMicrotask(() => {
+            getRandomDuck();
+        });
     }, []);
 
     return (
