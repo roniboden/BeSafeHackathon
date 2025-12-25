@@ -17,7 +17,7 @@ const getAllReports = (req, res) => {
 };
 
 // get a specific user report?
-const getReport = (res, req) => {
+const getReport = (req, res) => {
     const userID = parseInt(req.params.userID);
     const userReports = reports.filter(rep => rep.userID === userID);
     res.status(200).json(userReports)
@@ -25,7 +25,7 @@ const getReport = (res, req) => {
 
 // create a report and update user points
 const createReport = (req, res) => {
-    const { userID, action, descrition } = req.body;
+    const { userID, action, description } = req.body;
 
     // search for this user (use === for both type and value)
     const user = users.find(us => us.id === parseInt(userID));
@@ -41,7 +41,7 @@ const createReport = (req, res) => {
         id: reports.length,
         userID,
         action,
-        descrition,
+        description,
         pointsEarned,
         timestamp: new Date().toISOString //do we need this?
     }
