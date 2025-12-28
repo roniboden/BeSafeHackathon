@@ -16,9 +16,9 @@ const saveDB = (data) => {
 
 // map for points per action
 const POINT_VALUES = {
-    "reportMisconduct" : 50,
-    "watch_video": 50,
-    "steps": 20,
+    "reportPost": 50,
+    "safetyTips": 10,
+    "reportGood": 20,
     "extra": 5
 };
 

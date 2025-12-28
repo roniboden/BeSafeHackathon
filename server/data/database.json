@@ -5,13 +5,15 @@
       "username": "QueenB",
       "totalPoints": 90,
       "reportCounts": {
-        "reportMisconduct": 0,
-        "watch_video": 1,
-        "steps": 2,
+        "reportPost": 0,
+        "safetyTips": 1,
+        "reportGood": 2,
         "extra": 0
       }
     }
   ],
+
+
   "reports": [
     {
       "id": 1,
