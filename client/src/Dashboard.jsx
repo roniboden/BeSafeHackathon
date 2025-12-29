@@ -1,13 +1,58 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TaskCard from "./components/TaskCard";
 import ScoreCenter from './components/ScoreCenter';
+import api from './services/api';
 
-function App() {
-  const [totalScore, setTotalScore] = useState(1247);
+function Dashboard() {
+  const [userData, setUserData] = useState({
+    username: '',
+    totalPoints: 0,
+    stats: {
+      reportPost: 0,
+      safetyTips: 0,
+      reportGood: 0
+    }
+  });
 
-  const addPoints = () => {
-    setTotalScore(prevScore => prevScore + 10);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userID = 1;
+        const response = await api.get(`/reports/summary/${userID}`);
+        setUserData(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleUpdate = async (actionType) => {
+    try {
+      const userID = 1;
+      const response = await api.post('/reports', {
+        userID: userID,
+        action: actionType,
+        description: `User performed ${actionType}`
+      });
+
+      setUserData(prev => ({
+        ...prev,
+        totalPoints: response.data.newTotalPoints,
+        stats: response.data.newStats 
+      }));
+
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  if (isLoading) return <div style={{textAlign: 'center', marginTop: '50px'}}>Loading...</div>;
 
   return (
     <div style={{ 
@@ -17,49 +62,48 @@ function App() {
       fontFamily: 'Arial, sans-serif'
     }}>
       
-      <h1 style={{ textAlign: 'center' }}>Hello, Noa!</h1>
+      <h1 style={{ textAlign: 'center' }}>Hello, {userData.username}! 👋</h1>
       <h4 style={{ textAlign: 'center' }}>Thanks for making the internet a safer place</h4>
-
       
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '-20px' }}>
           <TaskCard 
-            title="Harmful Posts" 
-            score={12} 
+            title="Report Post" 
+            score={userData.stats.reportPost || 0} 
             total={50} 
             color="#FF4D4D" 
-            onUpdate={addPoints} 
+            onUpdate={() => handleUpdate('reportPost')} 
           />
         </div>
 
         <div style={{ position: 'relative', zIndex: 10 }}> 
-          <ScoreCenter score={totalScore} />
+          <ScoreCenter score={userData.totalPoints} />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '-20px' }}>
+          
           <TaskCard 
-            title="Unsafe Accounts" 
-            score={8} 
+            title="Safety Tips" 
+            score={userData.stats.safetyTips || 0} 
             total={25} 
             color="#FF9F1C" 
-            onUpdate={addPoints} 
+            onUpdate={() => handleUpdate('safetyTips')} 
           />
+          
           <TaskCard 
-            title="Safety Tasks" 
-            score={15} 
+            title="Report Good" 
+            score={userData.stats.reportGood || 0} 
             total={30} 
             color="#00C851" 
-            onUpdate={addPoints} 
+            onUpdate={() => handleUpdate('reportGood')} 
           />
         </div>
 
-        <h4 style={{ textAlign: 'center' }}>Keep Going!</h4>
-        <h5 style={{ textAlign: 'center' }}>Every positive action counts. Your efforts help create a more respectful and safe online community for everyone.</h5>
-
+        <h4 style={{ textAlign: 'center', marginTop: '40px' }}>Keep Going!</h4>
       </div>
     </div>
   );
 }
 
-export default App;
+export default Dashboard;

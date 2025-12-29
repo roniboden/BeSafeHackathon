@@ -3,11 +3,11 @@
     {
       "id": 1,
       "username": "QueenB",
-      "totalPoints": 90,
+      "totalPoints": 1660,
       "reportCounts": {
-        "reportPost": 0,
-        "safetyTips": 1,
-        "reportGood": 2,
+        "reportPost": 7,
+        "safetyTips": 25,
+        "reportGood": 3,
         "extra": 0
       }
     }
@@ -18,7 +18,7 @@
     {
       "id": 1,
       "userID": 1,
-      "action": "watch_video",
+      "action": "safetyTips",
       "description": "Finished the Phishing module",
       "pointsEarned": 50,
       "timestamp": "2025-12-28T09:42:00.191Z"
@@ -26,7 +26,7 @@
     {
       "id": 2,
       "userID": 1,
-      "action": "steps",
+      "action": "reportGood",
       "description": "Finished the Phishing module",
       "pointsEarned": 20,
       "timestamp": "2025-12-28T09:43:36.442Z"
@@ -34,10 +34,42 @@
     {
       "id": 3,
       "userID": 1,
-      "action": "steps",
+      "action": "reportGood",
       "description": "Finished the Phishing module",
       "pointsEarned": 20,
       "timestamp": "2025-12-28T09:43:38.222Z"
+    },
+    {
+      "id": 30,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportMisconduct",
+      "pointsEarned": 50,
+      "timestamp": "2025-12-29T13:08:29.142Z"
+    },
+    {
+      "id": 33,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2025-12-29T13:27:13.754Z"
+    },
+    {
+      "id": 6,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2025-12-29T18:39:53.660Z"
+    },
+    {
+      "id": 7,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2025-12-29T18:53:05.943Z"
     }
   ]
 }
