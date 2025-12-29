@@ -16,8 +16,8 @@ const saveDB = (data) => {
 
 // map for points per action
 const POINT_VALUES = {
-    "reportPost": 50,
-    "safetyTips": 10,
+    "reportPost" : 50,
+    "safetyTips": 50,
     "reportGood": 20,
     "extra": 5
 };
@@ -81,7 +81,8 @@ const createReport = (req, res) => {
     res.status(201).json({
         mesage: "Report added successfully",
         report: newReport,
-        newTotalPoints: user.totalPoints
+        newTotalPoints: user.totalPoints,
+        newStats: user.reportCounts
     });
 };
 
