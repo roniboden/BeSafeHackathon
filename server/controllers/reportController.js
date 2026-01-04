@@ -1,23 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import {readDB, saveDB} from '../utils/databaseHelper.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = path.join(__dirname, '../data/database.json');
-
-const readDB = () => {
-    const data = fs.readFileSync(dbPath);
-    return JSON.parse(data);
-};
-
-const saveDB = (data) => {
-    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-};
+//weekly goal
+const WEEKLY_GOAL_TARGET = 5;
+const WEEKLY_GOAL_REWARD = 500; 
 
 // map for points per action
 const POINT_VALUES = {
-    "reportPost" : 50,
-    "safetyTips": 50,
+    "reportPost": 50,
+    "safetyTips": 10,
     "reportGood": 20,
     "extra": 5
 };
@@ -57,6 +47,21 @@ const createReport = (req, res) => {
         return res.status(404).json({message: "User not found"});
     }
 
+    //
+    const COOLDOWN_MS = 5 * 60 * 1000;
+    const now = new Date();
+
+    if(user.lastReportTime != null){
+        const lastTime = new Date(user.lastReportTime);
+        if(now - lastTime < COOLDOWN_MS){
+            const timeLeft = Math.ceil((COOLDOWN_MS - (now - lastTime))/1000);
+            //429 - too many requests
+            return res.status(429).json({
+                message: `Request sent too close to last report update ${timeLeft} seconds left`
+            });
+        }
+    }
+
     //get the points from the map
     const pointsEarned = POINT_VALUES[action] || POINT_VALUES["extra"];
     //create the report object
@@ -70,6 +75,7 @@ const createReport = (req, res) => {
     }
 
     user.totalPoints += pointsEarned; //update user's points
+    user.lastReportTime = now.toISOString(); //store last update
     db.reports.push(newReport); //save the report
     //add report to user's count
     if (!user.reportCounts) user.reportCounts = {};
@@ -81,8 +87,7 @@ const createReport = (req, res) => {
     res.status(201).json({
         mesage: "Report added successfully",
         report: newReport,
-        newTotalPoints: user.totalPoints,
-        newStats: user.reportCounts
+        newTotalPoints: user.totalPoints
     });
 };
 

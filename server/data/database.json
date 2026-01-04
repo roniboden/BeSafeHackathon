@@ -3,17 +3,30 @@
     {
       "id": 1,
       "username": "QueenB",
-      "totalPoints": 1660,
+      "totalPoints": 1710,
+      "weeklyGoalCount": 0,
+      "achievedGoal": false,
       "reportCounts": {
-        "reportPost": 7,
+        "reportPost": 8,
         "safetyTips": 25,
         "reportGood": 3,
         "extra": 0
-      }
+      },
+      "lastReportTime": "2026-01-04T20:47:33.533Z"
+    },
+    {
+      "id": 2,
+      "username": "userTest2",
+      "totalPoints": 1710,
+      "reportCounts": {
+        "reportPost": 8,
+        "safetyTips": 25,
+        "reportGood": 3,
+        "extra": 0
+      },
+      "lastReportTime": null
     }
   ],
-
-
   "reports": [
     {
       "id": 1,
@@ -22,54 +35,16 @@
       "description": "Finished the Phishing module",
       "pointsEarned": 50,
       "timestamp": "2025-12-28T09:42:00.191Z"
-    },
-    {
-      "id": 2,
-      "userID": 1,
-      "action": "reportGood",
-      "description": "Finished the Phishing module",
-      "pointsEarned": 20,
-      "timestamp": "2025-12-28T09:43:36.442Z"
-    },
-    {
-      "id": 3,
-      "userID": 1,
-      "action": "reportGood",
-      "description": "Finished the Phishing module",
-      "pointsEarned": 20,
-      "timestamp": "2025-12-28T09:43:38.222Z"
-    },
-    {
-      "id": 30,
-      "userID": 1,
-      "action": "reportPost",
-      "description": "User performed reportMisconduct",
-      "pointsEarned": 50,
-      "timestamp": "2025-12-29T13:08:29.142Z"
-    },
-    {
-      "id": 33,
-      "userID": 1,
-      "action": "reportPost",
-      "description": "User performed reportPost",
-      "pointsEarned": 50,
-      "timestamp": "2025-12-29T13:27:13.754Z"
-    },
-    {
-      "id": 6,
-      "userID": 1,
-      "action": "reportPost",
-      "description": "User performed reportPost",
-      "pointsEarned": 50,
-      "timestamp": "2025-12-29T18:39:53.660Z"
-    },
-    {
-      "id": 7,
-      "userID": 1,
-      "action": "reportPost",
-      "description": "User performed reportPost",
-      "pointsEarned": 50,
-      "timestamp": "2025-12-29T18:53:05.943Z"
     }
+  ],
+
+  "shop": [
+    { "id": "iPad_air", "name": "iPad Air 5", "price": 10000 },
+    
+    { "id": "Garmin_Watch", "name": "Garmin Watch", "price": 8000 },
+
+    { "id": "Something_Cool", "name": "Must Buy", "price": 10000 },
+    
+    { "id": "Double_points", "name": "Double your points", "price": 20000 }
   ]
 }
