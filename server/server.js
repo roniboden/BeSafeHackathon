@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import reportRoutes from './routes/reportRoutes.js';
 import shopRoutes from './routes/shopRoutes.js';
+import {resetUsersWeeklyGoal} from './utils/databaseHelper';
 
 dotenv.config();
 
@@ -16,6 +17,9 @@ app.use(cors({
 
 app.use('/reports', reportRoutes); // allows localhost:5000/reports
 app.use('/shop', shopRoutes);
+
+//reset weekly
+resetUsersWeeklyGoal();
 
 // Start server
 const PORT = process.env.PORT;

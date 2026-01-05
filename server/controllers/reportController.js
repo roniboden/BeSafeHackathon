@@ -30,7 +30,7 @@ const getUserSummary = (req, res) => {
     res.status(200).json({
         username: user.username,
         totalPoints: user.totalPoints,
-        stats: user.reportCounts,      // This is your { watch_video: 5, steps: 2 ... }
+        stats: user.reportCounts,      // { watch_video: 5, steps: 2...}
         history: userReports           // The actual list of report objects
     });
 };
@@ -80,6 +80,16 @@ const createReport = (req, res) => {
     //add report to user's count
     if (!user.reportCounts) user.reportCounts = {};
     user.reportCounts[action] = (user.reportCounts[action] || 0) + 1;
+    user.weeklyGoalCount = (user.weeklyGoalCount || 0) + 1; //update
+
+    //check if user completed weekly goal
+    if(user.weeklyGoalCount >= WEEKLY_GOAL_TARGET && !user.achievedGoal){
+        user.totalPoints += WEEKLY_GOAL_REWARD;
+        user.achievedGoal = true;
+
+        //else add email notification?
+        console.log(`${user.username} reached weekly goal`);
+    }
     
     saveDB(db);
     
