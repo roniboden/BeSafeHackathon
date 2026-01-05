@@ -7,6 +7,7 @@ function Dashboard() {
   const [userData, setUserData] = useState({
     username: '',
     totalPoints: 0,
+    weeklyGoalStat: 0, // DAFNA - added this to track weekly goal status
     stats: {
       reportPost: 0,
       safetyTips: 0,
@@ -44,9 +45,14 @@ function Dashboard() {
       setUserData(prev => ({
         ...prev,
         totalPoints: response.data.newTotalPoints,
-        stats: response.data.newStats 
+        stats: response.data.newStats,
+        weeklyGoalStat: response.data.weeklyGoalCount //DAFNA - added progress
       }));
 
+      if(response.data.goalReachedNow) { //DAFNA - added temp alert
+        alert("Weekly goal reached! +500 bonus points, keep it up");
+      }
+      
     } catch (error) {
       console.error(error);
     }
@@ -98,6 +104,20 @@ function Dashboard() {
             color="#00C851" 
             onUpdate={() => handleUpdate('reportGood')} 
           />
+        </div>
+
+        
+        
+        <div style={{ marginTop: '30px', textAlign: 'center' }}>
+          <h3>Weekly Goal Progress: {userData.weeklyGoalStat} / 5</h3>
+          <div style={{ 
+            width: '100%', backgroundColor: '#ddd', borderRadius: '10px', height: '20px' 
+          }}> 
+            <div style={{ 
+              width: `${(userData.weeklyGoalStat / 5) * 100}%`, 
+              backgroundColor: '#00C851', height: '100%', borderRadius: '10px', transition: 'width 0.5s' 
+            }} />
+          </div>
         </div>
 
         <h4 style={{ textAlign: 'center', marginTop: '40px' }}>Keep Going!</h4>

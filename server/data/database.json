@@ -3,17 +3,33 @@
     {
       "id": 1,
       "username": "QueenB",
-      "totalPoints": 1660,
+      "email": "dafnatur@gmail.com",
+      "totalPoints": 5290,
+      "weeklyGoalCount": 0,
+      "achievedGoal": false,
       "reportCounts": {
-        "reportPost": 7,
+        "reportPost": 30,
+        "safetyTips": 25,
+        "reportGood": 27,
+        "extra": 0
+      },
+      "lastReportTime": "2026-01-05T08:59:27.910Z"
+    },
+    {
+      "id": 2,
+      "username": "userTest2",
+      "totalPoints": 1710,
+      "reportCounts": {
+        "reportPost": 8,
         "safetyTips": 25,
         "reportGood": 3,
         "extra": 0
-      }
+      },
+      "lastReportTime": null,
+      "weeklyGoalCount": 0,
+      "achievedGoal": false
     }
   ],
-
-
   "reports": [
     {
       "id": 1,
@@ -26,34 +42,34 @@
     {
       "id": 2,
       "userID": 1,
-      "action": "reportGood",
-      "description": "Finished the Phishing module",
-      "pointsEarned": 20,
-      "timestamp": "2025-12-28T09:43:36.442Z"
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:10:01.595Z"
     },
     {
       "id": 3,
       "userID": 1,
-      "action": "reportGood",
-      "description": "Finished the Phishing module",
-      "pointsEarned": 20,
-      "timestamp": "2025-12-28T09:43:38.222Z"
-    },
-    {
-      "id": 30,
-      "userID": 1,
       "action": "reportPost",
-      "description": "User performed reportMisconduct",
+      "description": "User performed reportPost",
       "pointsEarned": 50,
-      "timestamp": "2025-12-29T13:08:29.142Z"
+      "timestamp": "2026-01-05T08:16:09.022Z"
     },
     {
-      "id": 33,
+      "id": 4,
       "userID": 1,
       "action": "reportPost",
       "description": "User performed reportPost",
       "pointsEarned": 50,
-      "timestamp": "2025-12-29T13:27:13.754Z"
+      "timestamp": "2026-01-05T08:18:08.602Z"
+    },
+    {
+      "id": 5,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:18:17.391Z"
     },
     {
       "id": 6,
@@ -61,15 +77,357 @@
       "action": "reportPost",
       "description": "User performed reportPost",
       "pointsEarned": 50,
-      "timestamp": "2025-12-29T18:39:53.660Z"
+      "timestamp": "2026-01-05T08:18:21.398Z"
     },
     {
       "id": 7,
       "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:18:26.844Z"
+    },
+    {
+      "id": 8,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:18:43.114Z"
+    },
+    {
+      "id": 9,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:18:52.500Z"
+    },
+    {
+      "id": 10,
+      "userID": 1,
       "action": "reportPost",
       "description": "User performed reportPost",
       "pointsEarned": 50,
-      "timestamp": "2025-12-29T18:53:05.943Z"
+      "timestamp": "2026-01-05T08:31:00.719Z"
+    },
+    {
+      "id": 11,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:48:28.644Z"
+    },
+    {
+      "id": 12,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:32.992Z"
+    },
+    {
+      "id": 13,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:48:34.545Z"
+    },
+    {
+      "id": 14,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:48:34.612Z"
+    },
+    {
+      "id": 15,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:48:36.146Z"
+    },
+    {
+      "id": 16,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:45.489Z"
+    },
+    {
+      "id": 17,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:47.217Z"
+    },
+    {
+      "id": 18,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:47.524Z"
+    },
+    {
+      "id": 19,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:48.818Z"
+    },
+    {
+      "id": 20,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:48.859Z"
+    },
+    {
+      "id": 21,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:48:48.878Z"
+    },
+    {
+      "id": 22,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:01.611Z"
+    },
+    {
+      "id": 23,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:07.509Z"
+    },
+    {
+      "id": 24,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:09.621Z"
+    },
+    {
+      "id": 25,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:53:11.148Z"
+    },
+    {
+      "id": 26,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:11.566Z"
+    },
+    {
+      "id": 27,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:14.147Z"
+    },
+    {
+      "id": 28,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:16.119Z"
+    },
+    {
+      "id": 29,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:17.830Z"
+    },
+    {
+      "id": 30,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:53:29.995Z"
+    },
+    {
+      "id": 31,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:56:24.801Z"
+    },
+    {
+      "id": 32,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:57:09.222Z"
+    },
+    {
+      "id": 33,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:57:10.972Z"
+    },
+    {
+      "id": 34,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:57:12.565Z"
+    },
+    {
+      "id": 35,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:57:14.038Z"
+    },
+    {
+      "id": 36,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:58:06.527Z"
+    },
+    {
+      "id": 37,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:58:08.307Z"
+    },
+    {
+      "id": 38,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:58:09.939Z"
+    },
+    {
+      "id": 39,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "User performed reportGood",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-05T08:58:10.438Z"
+    },
+    {
+      "id": 40,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:18.700Z"
+    },
+    {
+      "id": 41,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:20.288Z"
+    },
+    {
+      "id": 42,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:21.827Z"
+    },
+    {
+      "id": 43,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:21.861Z"
+    },
+    {
+      "id": 44,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:22.440Z"
+    },
+    {
+      "id": 45,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:24.927Z"
+    },
+    {
+      "id": 46,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:26.453Z"
+    },
+    {
+      "id": 47,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "User performed reportPost",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-05T08:59:27.910Z"
+    }
+  ],
+  "shop": [
+    {
+      "id": "iPad_air",
+      "name": "iPad Air 5",
+      "price": 10000
+    },
+    {
+      "id": "Garmin_Watch",
+      "name": "Garmin Watch",
+      "price": 8000
+    },
+    {
+      "id": "Something_Cool",
+      "name": "Must Buy",
+      "price": 10000
+    },
+    {
+      "id": "Double_points",
+      "name": "Double your points",
+      "price": 20000
     }
   ]
 }
