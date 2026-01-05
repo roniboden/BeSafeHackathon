@@ -1,4 +1,5 @@
 import {readDB, saveDB} from '../utils/databaseHelper.js';
+import {validateReportsWithAI} from '../utils/aiHelper.js';
 
 //weekly goal
 const WEEKLY_GOAL_TARGET = 5;
@@ -37,8 +38,9 @@ const getUserSummary = (req, res) => {
 };
 
 // create a report and update user points
-const createReport = (req, res) => {
-    const { userID, action, description } = req.body;
+// 5.1 - added async for the AI
+const createReport = async (req, res) => {
+    const { userID, action, description} = req.body;
     const db = readDB();
 
     // search for this user (use === for both type and value)
@@ -48,7 +50,21 @@ const createReport = (req, res) => {
         return res.status(404).json({message: "User not found"});
     }
 
-    
+    // AI VALIDATION - needs to be added to frontend
+    console.log(`Going through AI validation for ${user.username}`);
+    const aiDecision = await validateReportsWithAI(description, action);
+
+    if(!aiDecision.isValid){
+        console.log(`Report rejected: ${aiDecision.reason}`);
+        return res.status(400).json({
+            message: "The AI decided this is not a valid report",
+            reason: aiDecision.reason
+        });
+    }
+
+    console.log(`Report validated: ${aiDecision.reason}`);
+
+
     const COOLDOWN_MS = 5 * 60 * 1000; //5 minutes cooldown
     const now = new Date();
 
