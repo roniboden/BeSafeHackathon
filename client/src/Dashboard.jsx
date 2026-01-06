@@ -2,8 +2,16 @@ import { useState, useEffect } from 'react';
 import TaskCard from "./components/TaskCard";
 import ScoreCenter from './components/ScoreCenter';
 import api from './services/api';
+import { useNavigate  } from 'react-router'; //DAFNA - I added this for the logout
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('besafe_user');
+    navigate('/');
+  };
+
   const [userData, setUserData] = useState({
     username: '',
     totalPoints: 0,
@@ -20,7 +28,8 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userID = 1;
+        const user = JSON.parse(localStorage.getItem('besafe_user')); //gets the current user
+        const userID = user?.id; //DAFNA - changes this so it's dynamic
         const response = await api.get(`/reports/summary/${userID}`);
         setUserData(response.data);
       } catch (error) {
@@ -67,7 +76,27 @@ function Dashboard() {
       padding: '20px',
       fontFamily: 'Arial, sans-serif'
     }}>
+
       
+      {/* --- ADDED LOGOUT BUTTON HERE --- */}
+      <div style={{ textAlign: 'right', marginBottom: '10px' }}>
+        <button 
+          onClick={handleLogout}
+          style={{
+            backgroundColor: '#FF4D4D',
+            color: 'white',
+            border: 'none',
+            padding: '10px 15px',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            fontWeight: 'bold'
+          }}
+        >
+          Logout 
+        </button>
+      </div>
+      {/* --- ADDED LOGOUT BUTTON HERE --- */}
+
       <h1 style={{ textAlign: 'center' }}>Hello, {userData.username}! 👋</h1>
       <h4 style={{ textAlign: 'center' }}>Thanks for making the internet a safer place</h4>
       
@@ -107,7 +136,7 @@ function Dashboard() {
         </div>
 
         
-        
+        {/* --- ADDED WEEKLY GOAL BAR HERE --- */}
         <div style={{ marginTop: '30px', textAlign: 'center' }}>
           <h3>Weekly Goal Progress: {userData.weeklyGoalStat} / 5</h3>
           <div style={{ 

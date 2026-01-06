@@ -5,7 +5,7 @@ dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-export const validateReportsWithAI = async (description, action, imageBuffer = null) => {
+export const validateReportsWithAI = async (description, action) => {
     //selected gemini 1.5 as recommended 
     const model = genAI.getGenerativeModel({model: "gemini-2.5-flash"});
 
