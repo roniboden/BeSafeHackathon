@@ -3,6 +3,7 @@
     {
       "id": 1,
       "username": "QueenB",
+      "password": "12345",
       "email": "dafnatur@gmail.com",
       "totalPoints": 5290,
       "weeklyGoalCount": 0,
@@ -18,16 +19,18 @@
     {
       "id": 2,
       "username": "userTest2",
+      "password": "12345",
+      "email": "dafnatur@gmail.com",
       "totalPoints": 1710,
+      "weeklyGoalCount": 0,
+      "achievedGoal": false,
       "reportCounts": {
         "reportPost": 8,
         "safetyTips": 25,
         "reportGood": 3,
         "extra": 0
       },
-      "lastReportTime": null,
-      "weeklyGoalCount": 0,
-      "achievedGoal": false
+      "lastReportTime": null
     }
   ],
   "reports": [
