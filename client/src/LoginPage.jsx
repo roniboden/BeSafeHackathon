@@ -52,11 +52,28 @@ function Login() {
       >
         Enter Dashboard
       </button>
+
+      <div style={{ marginTop: "18px" }}>
+        
+      <button
+        onClick={() => navigate("/register")}
+        style={{
+          background: "none",
+          border: "none",
+          color: "#555",
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+      >
+        New here? Create an account
+      </button>
+</div>
+
     </div>
   );
 }
 
-// Simple styling to make the inputs look cleaner
+
 const inputStyle = {
   padding: '10px',
   margin: '5px',
