@@ -5,20 +5,24 @@
       "username": "QueenB",
       "password": "12345",
       "email": "SomeEmail@gmail.com",
-      "totalPoints": 5980,
+      "totalPoints": 6390,
       "weeklyCounts": {
-        "reportPost": 6,
+        "reportPost": 7,
         "safetyTips": 6,
-        "reportGood": 8
+        "reportGood": 8,
+        "simulation": 7,
+        "simulations": 1
       },
       "monthlyCounts": {
-        "reportPost": 6,
+        "reportPost": 7,
         "safetyTips": 6,
-        "reportGood": 8
+        "reportGood": 8,
+        "simulation": 7,
+        "simulations": 1
       },
       "weekKey": "2026-W02",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-09T19:18:19.028Z",
+      "lastReportTime": "2026-01-10T15:56:04.752Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false
     },
@@ -31,12 +35,14 @@
       "weeklyCounts": {
         "reportPost": 6,
         "safetyTips": 5,
-        "reportGood": 5
+        "reportGood": 5,
+        "simulation": 0
       },
       "monthlyCounts": {
         "reportPost": 6,
         "safetyTips": 5,
-        "reportGood": 5
+        "reportGood": 5,
+        "simulation": 0
       },
       "weekKey": "2026-W02",
       "achievedGoal": false,
@@ -53,12 +59,14 @@
       "weeklyCounts": {
         "reportPost": 0,
         "safetyTips": 0,
-        "reportGood": 0
+        "reportGood": 0,
+        "simulation": 0
       },
       "monthlyCounts": {
         "reportPost": 0,
         "safetyTips": 0,
-        "reportGood": 0
+        "reportGood": 0,
+        "simulation": 0
       },
       "weekKey": "2026-W02",
       "monthKey": "2026-01",
@@ -118,6 +126,251 @@
       "id": "Double_points",
       "name": "Double your points",
       "price": 20000
+    }
+  ],
+  "handlingSummaries": [
+    {
+      "phishing": {
+        "title": "How to handle suspicious delivery/payment messages",
+        "steps": [
+          "Don’t click links or pay fees directly from messages.",
+          "Verify through the official app/website by typing the address yourself.",
+          "Look for red flags: urgency, shortened links, unexpected payments.",
+          "Report the message as phishing and delete it."
+        ],
+        "whyThisWorks": [
+          "Scammers use urgency to make you act without thinking.",
+          "Short links can hide malicious websites.",
+          "Independent verification explains whether the message is real."
+        ]
+      },
+      "scam": {
+        "title": "How to handle verification-code and account takeover scams",
+        "steps": [
+          "Never share verification/login codes with anyone — ever.",
+          "Verify the request by calling your friend using a number you already have.",
+          "If they pressure you, assume the account is compromised.",
+          "Report the suspicious account and warn the real person via another channel."
+        ],
+        "whyThisWorks": [
+          "Those codes are basically the key to YOUR account.",
+          "Impersonators rely on urgency and guilt to bypass your judgment.",
+          "Verifying via a trusted channel breaks the scam."
+        ]
+      },
+      "harassment": {
+        "title": "How to handle harassment and toxic group chats",
+        "steps": [
+          "Don’t participate or amplify harassment, even as a joke.",
+          "Support the targeted person privately if you can.",
+          "Document evidence (screenshots, usernames, timestamps).",
+          "Use platform tools: report, block, mute, and leave if needed."
+        ],
+        "whyThisWorks": [
+          "Harassment escalates when it gets attention.",
+          "Support from bystanders reduces harm to the target.",
+          "Reporting creates accountability without escalating conflict."
+        ]
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "sms_delivery_branch_01",
+      "category": "phishing",
+      "channel": "sms",
+      "title": "Delivery fee text",
+      "startNodeId": "n1",
+      "nodes": [
+        {
+          "id": "n1",
+          "message": "Your package is held. Pay ₪8.90: bit.ly/3XxYz",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Click the link",
+              "nextNodeId": "n2"
+            },
+            {
+              "id": "o2",
+              "text": "Check the official carrier app",
+              "nextNodeId": "good_end"
+            },
+            {
+              "id": "o3",
+              "text": "Reply asking if it’s real",
+              "nextNodeId": "n2"
+            }
+          ],
+          "redFlagsHere": [
+            "Shortened link",
+            "Unexpected fee"
+          ]
+        },
+        {
+          "id": "n2",
+          "message": "Payment failed. Enter card details again to release package.",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Enter card details",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Stop and verify independently",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Escalation to sensitive info",
+            "Pressure"
+          ]
+        }
+      ],
+      "endings": {
+        "good_end": {
+          "type": "safe",
+          "summary": "You avoided a suspicious link and verified through an official channel.",
+          "pointsReward": 25
+        },
+        "bad_end": {
+          "type": "unsafe",
+          "summary": "You shared sensitive information through an untrusted link.",
+          "pointsReward": 5
+        }
+      }
+    },
+    {
+      "id": "friend_impersonation_01",
+      "category": "scam",
+      "channel": "social_media",
+      "title": "The 'Help a Friend' Scam",
+      "startNodeId": "n1",
+      "nodes": [
+        {
+          "id": "n1",
+          "message": "Hey! I'm locked out of my account. I put your number as a backup. You're gonna get a 6-digit code, can you send it to me real quick?",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Send the code once it arrives",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Ask them a personal question only they would know",
+              "nextNodeId": "n2"
+            },
+            {
+              "id": "o3",
+              "text": "Call your friend on their actual phone",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Unexpected request for codes",
+            "Unusual way of talking"
+          ]
+        },
+        {
+          "id": "n2",
+          "message": "I don't have time for games, just send it or I'll lose my account forever!",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Send code to help them",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Block and report the account",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Aggressive/Guilt-tripping language"
+          ]
+        }
+      ],
+      "endings": {
+        "good_end": {
+          "type": "safe",
+          "summary": "You recognized the 'Verification Code' scam. Never share codes with anyone.",
+          "pointsReward": 30
+        },
+        "bad_end": {
+          "type": "unsafe",
+          "summary": "The code was for YOUR account. By sharing it, the hacker can now take over your profile.",
+          "pointsReward": 0
+        }
+      }
+    },
+    {
+      "id": "group_harassment_01",
+      "category": "harassment",
+      "channel": "chat",
+      "title": "Toxic Group Chat",
+      "startNodeId": "n1",
+      "nodes": [
+        {
+          "id": "n1",
+          "message": "Someone in the group chat is posting embarrassing, edited photos of another student and tagging them.",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Join in with a joke to fit in",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Take screenshots and report to the platform",
+              "nextNodeId": "good_end"
+            },
+            {
+              "id": "o3",
+              "text": "Tell the bully to stop in the main chat",
+              "nextNodeId": "n2"
+            }
+          ],
+          "redFlagsHere": [
+            "Non-consensual sharing of images",
+            "Targeted mocking"
+          ]
+        },
+        {
+          "id": "n2",
+          "message": "The bully starts attacking you now, calling you names for 'ruining the fun'.",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Argue back with insults",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Mute, Block, and Leave the chat",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Deflection",
+            "Increased aggression"
+          ]
+        }
+      ],
+      "endings": {
+        "good_end": {
+          "type": "safe",
+          "summary": "Reporting and disengaging is the best way to handle toxicity without escalating.",
+          "pointsReward": 25
+        },
+        "bad_end": {
+          "type": "unsafe",
+          "summary": "Participating in harassment makes the environment worse and can have consequences for you too.",
+          "pointsReward": 0
+        }
+      }
     }
   ],
   "reports": [
@@ -368,6 +621,14 @@
       "description": "Platform: Instagram\nLink: N/A\nWhy it’s good: I saw a video about how to treat my co-workers better and notice when they're down.",
       "pointsEarned": 20,
       "timestamp": "2026-01-09T19:18:19.028Z"
+    },
+    {
+      "id": 1768060564752,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "Platform: Instagram\nLink: N/A\nWhat happened: I reported a racist comment on a girl's instagram",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-10T15:56:04.752Z"
     }
   ]
 }

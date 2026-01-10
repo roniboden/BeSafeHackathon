@@ -59,3 +59,5 @@ Return ONLY JSON with:
     return { isValid: false, reason: "Validation service unavailable (OpenAI error)." };
   }
 };
+
+

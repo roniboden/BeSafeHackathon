@@ -5,6 +5,7 @@ import reportRoutes from './routes/reportRoutes.js';
 import shopRoutes from './routes/shopRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import tipRoutes from './routes/tipRoutes.js';
+import simulationRoutes from './routes/simulationRoutes.js';
 import {resetUsersWeeklyGoal} from './utils/databaseHelper.js';
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use('/reports', reportRoutes); // allows localhost:5000/reports
 app.use('/shop', shopRoutes);
 app.use('/auth', authRoutes);
 app.use('/tips', tipRoutes);
+app.use("/simulations", simulationRoutes);
 
 //reset weekly
 resetUsersWeeklyGoal();

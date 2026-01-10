@@ -6,6 +6,7 @@ import MonthlyGoalBar from "./components/MonthlyGoalBar";
 import SafetyTipQuizModal from "./components/SafetyTipQuiz";
 import ReportModal from "./components/ReportModal";
 import FeedbackToast from "./components/FeedbackToast";
+import SimulationModal from "./components/SimulationModal";
 import api from './services/api';
 
 
@@ -15,15 +16,15 @@ function Dashboard() {
     username: "",
     totalPoints: 0,
 
-    weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0 },
-    weeklyTargets: { reportPost: 5, safetyTips: 5, reportGood: 5 },
+    weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
+    weeklyTargets: { reportPost: 5, safetyTips: 5, reportGood: 5, simulation: 0 },
 
-    monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0 },
-    monthlyTargets: { reportPost: 20, safetyTips: 20, reportGood: 20 },
+    monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
+    monthlyTargets: { reportPost: 20, safetyTips: 20, reportGood: 20, simulation: 20 },
 
     monthlyGoalAchieved: false
   });
-
+  
   const [isLoading, setIsLoading] = useState(true);
 
   const loadSummary = async () => {
@@ -54,7 +55,7 @@ function Dashboard() {
     fetchData();
   }, []);
 
-
+  // report tasks
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [reportAction, setReportAction] = useState(null);
 
@@ -101,11 +102,18 @@ function Dashboard() {
         showFeedback("error", `Report rejected: ${msg}`);
     }
   };
-
+  
+  //safety tips 
   const [isQuizOpen, setIsQuizOpen] = useState(false);
 
   const openSafetyQuiz = () => setIsQuizOpen(true);
   const closeSafetyQuiz = () => setIsQuizOpen(false);
+
+  // simulation
+  const [isSimOpen, setIsSimOpen] = useState(false);
+  const openSimulation = () => setIsSimOpen(true);
+  const closeSimulation = () => setIsSimOpen(false);
+
 
   if (isLoading) return <div style={{textAlign: 'center', marginTop: '50px'}}>Loading...</div>;
 
@@ -136,10 +144,24 @@ function Dashboard() {
 
       <h1 style={{ textAlign: 'center' }}>Hello, {userData.username}! 👋</h1>
       <h4 style={{ textAlign: 'center' }}>Thanks for making the internet a safer place</h4>
+
+      <SimulationModal
+        isOpen={isSimOpen}
+        onClose={closeSimulation}
+        onSuccess={loadSummary}
+      />
       
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '-20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '-20px' }}>
+          <TaskCard 
+            title="Simulation" 
+            score={userData.weeklyCounts.simulation || 0} 
+            total={userData.weeklyTargets?.simulation || 5} 
+            color="#7E57C2" 
+            onUpdate={openSimulation}
+          />
+
           <TaskCard 
             title="Report Post" 
             score={userData.weeklyCounts.reportPost || 0} 

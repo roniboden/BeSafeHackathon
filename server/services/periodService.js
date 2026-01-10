@@ -26,13 +26,13 @@ export const ensurePeriodsCurrent = (user) => {
   // week rollover => reset weeklyCounts
   if (user.weekKey !== currentWeekKey) {
     user.weekKey = currentWeekKey;
-    user.weeklyCounts = { reportPost: 0, safetyTips: 0, reportGood: 0 };
+    user.weeklyCounts = { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 };
   }
 
   // month rollover => reset monthlyCounts + monthly achieved
   if (user.monthKey !== currentMonthKey) {
     user.monthKey = currentMonthKey;
-    user.monthlyCounts = { reportPost: 0, safetyTips: 0, reportGood: 0 };
+    user.monthlyCounts = { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 };
     user.monthlyGoalAchieved = false;
   }
 };

@@ -26,8 +26,8 @@ export const register = (req, res) => {
         password,   // (yes, plain text for now)
         email,
         totalPoints: 0,
-        weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0 },
-        monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0 },
+        weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
+        monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
         weekKey: db.users[0]?.weekKey || "2026-W02",
         monthKey: db.users[0]?.monthKey || "2026-01",
         achievedGoal: false,

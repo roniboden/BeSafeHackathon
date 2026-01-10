@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 function MonthlyGoalBar({
   monthlyCounts = {},
   monthlyTargets = {},
-  actions = ["reportPost", "safetyTips", "reportGood"],
+  actions = ["reportPost", "safetyTips", "reportGood", "simulation"],
   title = "Monthly Goal Progress"
 }) {
   const done = actions.reduce((sum, a) => sum + (monthlyCounts?.[a] || 0), 0);
