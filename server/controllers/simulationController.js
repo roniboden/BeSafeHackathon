@@ -1,6 +1,7 @@
 import { readDB, saveDB } from "../utils/databaseHelper.js";
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import {applyDailyStreak} from "../utils/streak.js";
 
 dotenv.config();
 

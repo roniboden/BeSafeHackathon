@@ -5,7 +5,7 @@
       "username": "QueenB",
       "password": "12345",
       "email": "SomeEmail@gmail.com",
-      "totalPoints": 3960,
+      "totalPoints": 3950,
       "weeklyCounts": {
         "reportPost": 6,
         "safetyTips": 7,
@@ -131,13 +131,51 @@
       "monthKey": "2026-01",
       "achievedGoal": false,
       "lastReportTime": "2026-01-10T18:28:21.851Z",
-      "monthlyGoalAchieved": false,"streak": {
+      "monthlyGoalAchieved": false,
+      "streak": {
         "current": 1,
         "best": 1,
         "lastActiveDate": "2026-01-10"
       },
       "profile": {
         "displayName": "QueenB2",
+        "bio": "",
+        "avatarUrl": "",
+        "privacy": {
+          "showStats": true
+        }
+      }
+    },
+    {
+      "id": 5,
+      "username": "nanobanana",
+      "password": "12345",
+      "email": "asd@walla.com",
+      "totalPoints": 0,
+      "weeklyCounts": {
+        "reportPost": 0,
+        "safetyTips": 0,
+        "reportGood": 0,
+        "simulation": 0
+      },
+      "monthlyCounts": {
+        "reportPost": 0,
+        "safetyTips": 0,
+        "reportGood": 0,
+        "simulation": 0
+      },
+      "weekKey": "2026-W02",
+      "monthKey": "2026-01",
+      "achievedGoal": false,
+      "lastReportTime": null,
+      "monthlyGoalAchieved": false,
+      "streak": {
+        "current": 1,
+        "best": 1,
+        "lastActiveDate": "2026-01-11"
+      },
+      "profile": {
+        "displayName": "nanobanana",
         "bio": "",
         "avatarUrl": "",
         "privacy": {
