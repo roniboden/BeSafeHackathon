@@ -7,11 +7,11 @@ import {applyDailyStreak} from "../utils/streak.js";
 
 const COOLDOWN_MS = 1; // 5 * 60 * 1000; // 5 minutes
 
-export const createReportService = async ({ userID, action, description }) => {
+export const createReportService = async ({ userId, action, description }) => {
   const db = readDB();
-  const id = Number(userID);
+  const id = Number(userId);
 
-  const user = db.users.find(u => u.id === id);
+  const user = db.users?.find(u => u.id === id);
   if (!user) {
     throw { status: 404, message: "User not found" };
   }

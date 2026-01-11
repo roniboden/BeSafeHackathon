@@ -5,22 +5,22 @@
       "username": "QueenB",
       "password": "12345",
       "email": "SomeEmail@gmail.com",
-      "totalPoints": 3950,
+      "totalPoints": 3990,
       "weeklyCounts": {
         "reportPost": 6,
-        "safetyTips": 7,
-        "reportGood": 8,
+        "safetyTips": 9,
+        "reportGood": 9,
         "simulation": 7
       },
       "monthlyCounts": {
         "reportPost": 7,
-        "safetyTips": 7,
-        "reportGood": 8,
+        "safetyTips": 9,
+        "reportGood": 9,
         "simulation": 7
       },
       "weekKey": "2026-W02",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-11T08:41:18.282Z",
+      "lastReportTime": "2026-01-11T14:09:13.567Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false,
       "streak": {
@@ -745,6 +745,14 @@
       "description": "Platform: Instagram\nLink: N/A\nWhat happened: I reported a racist comment on a girl's instagram",
       "pointsEarned": 50,
       "timestamp": "2026-01-10T15:56:04.752Z"
+    },
+    {
+      "id": 1768140553570,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "Platform: Instagram\nLink: N/A\nWhy it’s good: This is ahelpful video on how to help your friends",
+      "pointsEarned": 20,
+      "timestamp": "2026-01-11T14:09:13.570Z"
     }
   ]
 }
