@@ -233,6 +233,7 @@ export function stepScenario(req, res) {
           user.totalPoints = Number(user.totalPoints || 0) + pointsEarned;
           user.weeklyCounts.simulation = (user.weeklyCounts.simulation || 0) + 1;
           user.monthlyCounts.simulation = (user.monthlyCounts.simulation || 0) + 1;
+          applyDailyStreak(user);
           saveDB(db);
         }
       }

@@ -32,7 +32,12 @@ export const register = (req, res) => {
         monthKey: db.users[0]?.monthKey || "2026-01",
         achievedGoal: false,
         lastReportTime: null,
-        monthlyGoalAchieved: false
+        monthlyGoalAchieved: false,
+        streak : {
+        current: 1,
+        best: 1,
+        lastActiveDate: new Date().toISOString().slice(0, 10)
+      }
     };
 
     db.users.push(newUser);

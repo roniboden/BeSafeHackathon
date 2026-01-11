@@ -19,12 +19,18 @@ export const getUserSummaryService = (userID) => {
     username: user.username,
     totalPoints: user.totalPoints,
 
+    streak: {
+      current: user.streak?.current ?? 0,
+      best: user.streak?.best ?? 0,
+      lastActiveDate: user.streak?.lastActiveDate ?? null
+    },
+
     weeklyCounts: user.weeklyCounts,
     weeklyTargets: WEEKLY_TARGETS,
 
     monthlyCounts: user.monthlyCounts,
     monthlyTargets,
 
-    monthlyGoalAchieved: !!user.monthlyGoalAchieved
+    monthlyGoalAchieved: !!user.monthlyGoalAchieved //!! converts to boolean
   };
 };

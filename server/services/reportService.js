@@ -3,6 +3,7 @@ import { checkCooldown } from "./cooldownService.js";
 import { validateReport } from "./validateService.js";
 import { updateUserPoints } from "./pointsService.js";
 import { updateGoalStatus } from "./goalService.js";
+import {applyDailyStreak} from "../utils/streak.js";
 
 const COOLDOWN_MS = 1; // 5 * 60 * 1000; // 5 minutes
 
@@ -23,6 +24,9 @@ export const createReportService = async ({ userID, action, description }) => {
 
   // Points update
   const pointsEarned = updateUserPoints(user, action);
+
+  //streak update
+  applyDailyStreak(user);
 
   // Create report object
   const now = new Date();
