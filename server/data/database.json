@@ -5,26 +5,37 @@
       "username": "QueenB",
       "password": "12345",
       "email": "SomeEmail@gmail.com",
-      "totalPoints": 6390,
+      "totalPoints": 6400,
       "weeklyCounts": {
         "reportPost": 7,
-        "safetyTips": 6,
+        "safetyTips": 7,
         "reportGood": 8,
-        "simulation": 7,
-        "simulations": 1
+        "simulation": 7
       },
       "monthlyCounts": {
         "reportPost": 7,
-        "safetyTips": 6,
+        "safetyTips": 7,
         "reportGood": 8,
-        "simulation": 7,
-        "simulations": 1
+        "simulation": 7
       },
       "weekKey": "2026-W02",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-10T15:56:04.752Z",
+      "lastReportTime": "2026-01-11T08:41:18.282Z",
       "monthKey": "2026-01",
-      "monthlyGoalAchieved": false
+      "monthlyGoalAchieved": false,
+      "streak": {
+        "current": 2,
+        "best": 2,
+        "lastActiveDate": "2026-01-11"
+      },
+      "profile": {
+        "displayName": "QueenB",
+        "bio": "",
+        "avatarUrl": "",
+        "privacy": {
+          "showStats": true
+        }
+      }
     },
     {
       "id": 2,
@@ -48,7 +59,20 @@
       "achievedGoal": false,
       "lastReportTime": "2026-01-09T15:30:00.842Z",
       "monthKey": "2026-01",
-      "monthlyGoalAchieved": false
+      "monthlyGoalAchieved": false,
+      "streak": {
+        "current": 1,
+        "best": 1,
+        "lastActiveDate": "2026-01-10"
+      },
+      "profile": {
+        "displayName": "user2",
+        "bio": "",
+        "avatarUrl": "",
+        "privacy": {
+          "showStats": true
+        }
+      }
     },
     {
       "id": 3,
@@ -72,7 +96,20 @@
       "monthKey": "2026-01",
       "achievedGoal": false,
       "lastReportTime": null,
-      "monthlyGoalAchieved": false
+      "monthlyGoalAchieved": false,
+      "streak": {
+        "current": 1,
+        "best": 1,
+        "lastActiveDate": "2026-01-10"
+      },
+      "profile": {
+        "displayName": "QueenB2",
+        "bio": "",
+        "avatarUrl": "",
+        "privacy": {
+          "showStats": true
+        }
+      }
     }
   ],
   "safety-tips": [

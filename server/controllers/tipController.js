@@ -2,6 +2,7 @@ import { readDB, saveDB } from "../utils/databaseHelper.js";
 import { updateUserPoints } from "../services/pointsService.js"; // uses action="safetyTips"
 import { updateGoalStatus } from "../services/goalService.js";
 import { ensurePeriodsCurrent } from "../services/periodService.js";
+import { applyDailyStreak } from "../utils/streak.js";
 
 /**
  * get a random tip for the user
@@ -61,6 +62,7 @@ export const submitTipAnswer = (req, res) => {
     }
 
     const pointsEarned = updateUserPoints(user, "safetyTips");
+    applyDailyStreak(user); // update streak
     const monthlyGoalAchieved = updateGoalStatus(user);
 
     saveDB(db);
