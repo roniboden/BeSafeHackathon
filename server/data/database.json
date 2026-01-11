@@ -5,24 +5,23 @@
       "username": "QueenB",
       "password": "12345",
       "email": "SomeEmail@gmail.com",
-      "totalPoints": 6390,
+      "totalPoints": 3960,
       "weeklyCounts": {
-        "reportPost": 7,
-        "safetyTips": 6,
+        "reportPost": 6,
+        "safetyTips": 7,
         "reportGood": 8,
-        "simulation": 7,
-        "simulations": 1
+        "simulation": 7
       },
       "monthlyCounts": {
-        "reportPost": 7,
-        "safetyTips": 6,
+        "reportPost": 6,
+        "safetyTips": 7,
         "reportGood": 8,
-        "simulation": 7,
-        "simulations": 1
+        "simulation": 7
+
       },
       "weekKey": "2026-W02",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-10T15:56:04.752Z",
+      "lastReportTime": "2026-01-10T17:04:59.968Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false
     },
@@ -73,6 +72,28 @@
       "achievedGoal": false,
       "lastReportTime": null,
       "monthlyGoalAchieved": false
+    },
+    {
+      "id": 4,
+      "username": "adar",
+      "password": "ggg",
+      "email": "abc@gmail.com",
+      "totalPoints": 10,
+      "weeklyCounts": {
+        "reportPost": 0,
+        "safetyTips": 1,
+        "reportGood": 1
+      },
+      "monthlyCounts": {
+        "reportPost": 0,
+        "safetyTips": 1,
+        "reportGood": 1
+      },
+      "weekKey": "2026-W02",
+      "monthKey": "2026-01",
+      "achievedGoal": false,
+      "lastReportTime": "2026-01-10T18:28:21.851Z",
+      "monthlyGoalAchieved": false
     }
   ],
   "safety-tips": [
@@ -110,22 +131,29 @@
     {
       "id": "iPad_air",
       "name": "iPad Air 5",
-      "price": 10000
+      "price": 10,
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-air-select-wifi-blue-202203?wid=470&hei=556&fmt=png-alpha&.v=1645065732688",
+      "tag": "Best for Students",
+      "type": "physical",
+      "inStock": true
     },
     {
       "id": "Garmin_Watch",
       "name": "Garmin Watch",
-      "price": 8000
+      "price": 80,
+      "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80",
+      "tag": null,
+      "type": "physical",
+      "inStock": true
     },
     {
-      "id": "Something_Cool",
-      "name": "Must Buy",
-      "price": 10000
-    },
-    {
-      "id": "Double_points",
-      "name": "Double your points",
-      "price": 20000
+      "id": "iPhone",
+      "name": "iPhone 17",
+      "price": 10,
+      "imageUrl": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-black?wid=5120&hei=2880&fmt=p-jpg",
+      "tag": "New",
+      "type": "physical",
+      "inStock": true
     }
   ],
   "handlingSummaries": [
