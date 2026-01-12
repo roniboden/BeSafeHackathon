@@ -10,9 +10,9 @@ function TaskCard({ title, score, total, color, onUpdate }) {
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="task-card-v3">
-      {/* Visual top border to match the design */}
-      <div className="card-accent" style={{ backgroundColor: color }} />
+    
+    <div className={`task-card-v3 ${reachedGoal ? "is-completed" : ""}`}>
+      <div className="card-accent" style={{ backgroundColor: reachedGoal ? "#ccc" : color }} />
       
       <h3>{title}</h3>
 
