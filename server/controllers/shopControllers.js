@@ -1,59 +1,58 @@
 import { readDB, saveDB } from '../utils/databaseHelper.js';
+import { sendPurchaseEmail } from '../utils/mailer.js';
 
 export const getShopItems = (req, res) => {
     const db = readDB();
     res.json(db.shop || []); 
 };
 
-
-// Helper function (You can move this to a separate utility later)
-const sendPurchaseEmail = (userEmail, itemName) => {
-    console.log(`Email sent to ${userEmail}: You successfully bought ${itemName}!`);
-    // Logic for Nodemailer 
-};
-
 export const purchaseItem = (req, res) => {
     const { userId, itemId } = req.body;
     const db = readDB();
 
+    // 1. Initialize variables FIRST
     const user = db.users.find(u => u.id == userId);
     const item = db.shop.find(i => i.id === itemId);
+  console.log("purchaseItem hit", req.body);
 
+    // 2. Validate existence immediately after initialization
     if (!user || !item) {
+        console.log("Error: User or Item not found");
         return res.status(404).json({ message: "User or Item not found" });
     }
+
+    // 3. Log user email safely now that 'user' is initialized
+    console.log("Checking user email:", user.email); 
 
     if (user.totalPoints < item.price) {
         return res.status(400).json({ message: "Insufficient points" });
     }
 
-    // 1. Deduct points
+    // 4. Update data
     user.totalPoints -= item.price;
-
-    // 2. Record the history
-    // We initialize the array if it doesn't exist yet
-    if (!user.purchaseHistory) {
-        user.purchaseHistory = [];
-    }
+    if (!user.purchaseHistory) user.purchaseHistory = [];
 
     const purchaseRecord = {
-        purchaseId: Date.now(), // Unique-ish timestamp ID
+        purchaseId: Date.now(),
         itemId: item.id,
         itemName: item.name,
         pricePaid: item.price,
         date: new Date().toISOString()
     };
-
     user.purchaseHistory.push(purchaseRecord);
+        console.log("Attempting to send email to:", user.email);
 
-    // 3. Save to Database
+    // 5. Save to Database
     saveDB(db);
 
-    // 4. Trigger Email (Asynchronous)
+    // 6. Trigger Real Email
     if (user.email) {
-        sendPurchaseEmail(user.email, item.name);
+        console.log("Attempting to send email to:", user.email);
+        // This runs in the background
+        sendPurchaseEmail(user.email, item.name, item.price);
     }
 
+    // 7. Send Response
     res.json({ 
         success: true, 
         newBalance: user.totalPoints,

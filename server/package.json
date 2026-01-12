@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "eslint . && node server",
-    "dev": "eslint . && nodemon server",
+    "dev": "eslint . && nodemon server.js --ext js,mjs,cjs --ignore '*.json'",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "express": "^5.1.0",
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.12",
     "openai": "^6.15.0",
     "resend": "^6.7.0"
   },
