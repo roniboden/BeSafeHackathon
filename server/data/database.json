@@ -5,22 +5,22 @@
       "username": "QueenB",
       "password": "12345",
       "email": "Dafnatur@gmail.com",
-      "totalPoints": 3920,
+      "totalPoints": 4020,
       "weeklyCounts": {
         "reportPost": 0,
-        "safetyTips": 0,
+        "safetyTips": 5,
         "reportGood": 1,
         "simulation": 2
       },
       "monthlyCounts": {
         "reportPost": 8,
-        "safetyTips": 10,
+        "safetyTips": 15,
         "reportGood": 10,
         "simulation": 16
       },
       "weekKey": "2026-W03",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-12T09:46:32.112Z",
+      "lastReportTime": "2026-01-12T14:46:46.124Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false,
       "streak": {
@@ -72,7 +72,12 @@
           "pricePaid": 10,
           "date": "2026-01-12T07:45:30.977Z"
         }
-      ]
+      ],
+      "dailyCounts": {
+        "safetyTips": 1
+      },
+      "lastDailyDate": "2026-01-12",
+      "lastChallengeDate": "2026-01-12T14:46:49.226Z"
     },
     {
       "id": 2,
@@ -163,28 +168,28 @@
       "username": "adar",
       "password": "ggg",
       "email": "abc@gmail.com",
-      "totalPoints": 10,
+      "totalPoints": 110,
       "weeklyCounts": {
         "reportPost": 0,
-        "safetyTips": 1,
-        "reportGood": 1,
+        "safetyTips": 5,
+        "reportGood": 0,
         "simulation": 0
       },
       "monthlyCounts": {
         "reportPost": 0,
-        "safetyTips": 1,
+        "safetyTips": 6,
         "reportGood": 1,
         "simulation": 0
       },
-      "weekKey": "2026-W02",
+      "weekKey": "2026-W03",
       "monthKey": "2026-01",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-10T18:28:21.851Z",
+      "lastReportTime": "2026-01-12T13:30:14.988Z",
       "monthlyGoalAchieved": false,
       "streak": {
         "current": 1,
         "best": 1,
-        "lastActiveDate": "2026-01-10"
+        "lastActiveDate": "2026-01-12"
       },
       "profile": {
         "displayName": "QueenB2",
@@ -194,7 +199,12 @@
           "showStats": true
         }
       },
-      "purchaseHistory": []
+      "purchaseHistory": [],
+      "dailyCounts": {
+        "safetyTips": 1
+      },
+      "lastDailyDate": "2026-01-12",
+      "lastChallengeDate": "2026-01-12T14:47:47.174Z"
     },
     {
       "id": 5,
@@ -940,6 +950,24 @@
         "newTotal": 3860
       },
       "timestamp": "2026-01-12T09:07:53.299Z"
+    },
+    {
+      "id": 1768229209229,
+      "userID": 1,
+      "action": "safetyTips",
+      "description": "Completed Daily Safety Quiz",
+      "pointsEarned": "[object Object]50",
+      "isChallenge": true,
+      "timestamp": "2026-01-12T14:46:49.229Z"
+    },
+    {
+      "id": 1768229267176,
+      "userID": 4,
+      "action": "safetyTips",
+      "description": "Completed Daily Safety Quiz",
+      "pointsEarned": "[object Object]50",
+      "isChallenge": true,
+      "timestamp": "2026-01-12T14:47:47.176Z"
     }
   ]
 }
