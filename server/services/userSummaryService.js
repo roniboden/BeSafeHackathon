@@ -18,6 +18,7 @@ export const getUserSummaryService = (userID) => {
   return {
     username: user.username,
     totalPoints: user.totalPoints,
+    purchaseHistory: user.purchaseHistory || [],
 
     streak: {
       current: user.streak?.current ?? 0,

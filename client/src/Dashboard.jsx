@@ -128,7 +128,7 @@ function Dashboard() {
         </div>
 
         {/* Modern Shop Button (Coins) */}
-        <button className="points-shop-button" onClick={() => navigate("/store")}>
+        <button className="points-shop-button" onClick={() => navigate("/shop")}>
           <div className="points-icon-container">
             <span className="bank-icon">🏛️</span>
           </div>
