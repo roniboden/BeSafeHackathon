@@ -24,6 +24,7 @@ function Dashboard() {
   const [userData, setUserData] = useState({
     username: "",
     totalPoints: 0,
+    dailyCounts: { safetyTips: 0 },
     streak: { current: 0 },
     weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
     weeklyTargets: { reportPost: 5, safetyTips: 5, reportGood: 5, simulation: 5 },
@@ -84,9 +85,15 @@ function Dashboard() {
   const submitReport = async ({ action, description }) => {
     const user = JSON.parse(localStorage.getItem("besafe_user"));
     
+    const isDailyChallenge = true; 
+
     try {
-      // This triggers your validateReport logic on the backend/helper
-      await api.post("/reports", { userId: user.id, action, description });
+      await api.post("/reports", { 
+        userId: user.id, 
+        action, 
+        description,
+        isDailyChallenge 
+      });
       
       await loadSummary();
       setFeedback({ 
@@ -95,19 +102,23 @@ function Dashboard() {
       });
       closeReportModal();
     } catch (error) {
-      // Extract the specific AI fields you defined in validateReport
       const aiReason = error?.response?.data?.reason;
       const aiMessage = error?.response?.data?.message;
 
-      // Use a multi-line string or a formatted object for the toast
-      // This ensures the user sees the "Gibberish" reason clearly
       setFeedback({ 
         type: "error", 
         message: aiReason ? `${aiMessage}: ${aiReason}` : "Submission failed. Please try again."
       });
-
-      // We do NOT close the modal so the user can see the reason and edit their text
     }
+  };
+
+  const isDailyChallengeCompleted = () => {
+    if (!userData.lastChallengeDate) return false;
+    
+    const today = new Date().toDateString(); // למשל: "Mon Jan 12 2026"
+    const lastDate = new Date(userData.lastChallengeDate).toDateString();
+    
+    return today === lastDate;
   };
 
   if (isLoading) return <div className="loading-state">Loading...</div>;
@@ -155,6 +166,28 @@ function Dashboard() {
       />
 
       <main>
+        <div className="daily-challenge-card">
+          <div className="daily-content">
+            <h2 className="daily-title">
+               Daily Challenge
+            </h2>
+            <p className="daily-text">
+              Solve 1 Safety Tip quiz today to keep your streak!
+            </p>
+          </div>
+          <div>
+            {isDailyChallengeCompleted() ? (
+              <div className="daily-checkmark">✅</div>
+            ) : (
+              <button 
+                onClick={openSafetyQuiz}
+                className="daily-button"
+              >
+                Start Quiz
+              </button>
+            )}
+          </div>
+        </div>
         <div className="task-grid">
           <TaskCard 
             title="Simulation" 

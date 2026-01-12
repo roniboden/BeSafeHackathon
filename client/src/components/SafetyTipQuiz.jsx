@@ -35,7 +35,7 @@ function SafetyTipModal({ isOpen, onClose, onSuccess }) {
   const handleSubmit = async () => {
     if (!selectedOption || !tip?.id) return;
     setIsLoading(true);
-    setErrorMsg(""); // Clear previous errors
+    setErrorMsg(""); 
     const user = JSON.parse(localStorage.getItem("besafe_user"));
     
     try {
@@ -47,10 +47,24 @@ function SafetyTipModal({ isOpen, onClose, onSuccess }) {
 
       setResult(res.data);
       
-      // If correct, notify parent to update points/UI
-      if (res.data.isCorrect && onSuccess) {
-        onSuccess();
+      if (res.data.isCorrect) {
+        try {
+          await api.post("/reports", {
+            userId: user.id,
+            action: "safetyTips",
+            description: "Completed Daily Safety Quiz",
+            isDailyChallenge: true
+          });
+
+          if (onSuccess) onSuccess(); 
+
+        } catch (reportError) {
+          console.log("Daily challenge reporting:", reportError.response?.data?.message);
+          
+          if (onSuccess) onSuccess();
+        }
       }
+      
     } catch (err) {
       setErrorMsg(err?.response?.data?.message || "Failed to submit answer.");
     } finally {
@@ -78,7 +92,6 @@ function SafetyTipModal({ isOpen, onClose, onSuccess }) {
               </div>
 
               <div className="quiz-options-stack">
-                {/* Display the actual question from the controller */}
                 <p className="quiz-question-text"><strong>Question:</strong> {tip.question}</p>
                 
                 {tip.options.map((opt) => (
@@ -120,7 +133,6 @@ function SafetyTipModal({ isOpen, onClose, onSuccess }) {
               </p>
               
               <div className="action-row">
-                {/* If wrong, let them try the same one again; if correct, load new */}
                 <button 
                   className="btn-secondary action-half-btn" 
                   onClick={() => result.isCorrect ? loadRandomTip() : setResult(null)}

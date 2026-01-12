@@ -14,12 +14,20 @@ export const getUserSummary = (req, res) => {
 
 export const createReport = async (req, res) => {
   try {
-    const result = await createReportService(req.body);
+    const { userId, action, description, isDailyChallenge } = req.body;
+
+    const result = await createReportService({
+      userId,
+      action,
+      description,
+      isDailyChallenge: isDailyChallenge === true || isDailyChallenge === "true"
+    });
+
     return res.status(201).json(result);
   } catch (err) {
     return res.status(err.status || 500).json({
       message: err.message || "Server error",
-      reason: err.reason
+      reason: err.aiReason || err.reason
     });
   }
 };
