@@ -11,7 +11,7 @@ export const login = async (req, res) => {
         try{
             const isMatch = await bcrypt.compare(password, user.hashedPassword);
             if(isMatch){
-                res.status(200).json({
+                return res.status(200).json({
                     message: "Login successful",
                     user: {
                         id: user.id,
@@ -22,6 +22,11 @@ export const login = async (req, res) => {
                     }
                 });
             }
+            else{
+                return res.status(401).json({ message: "Invalid username or password" });
+            }
+
+            
 
         } catch(error){
             return res.status(500).json({ 

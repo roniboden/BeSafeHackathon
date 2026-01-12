@@ -1,6 +1,7 @@
 import { validateReportsWithAI } from "../utils/aiHelper.js";
 
-export const validateReport = async ({ description, action }) => {
+// 1. Add imageUrl to the function parameters
+export const validateReport = async ({ description, action, imageUrl }) => {
   if (!description || typeof description !== "string" || description.trim().length < 3) {
     throw {
       status: 400,
@@ -9,7 +10,12 @@ export const validateReport = async ({ description, action }) => {
     };
   }
 
-  const aiDecision = await validateReportsWithAI(description, action);
+  // 2. Pass as an OBJECT and include the imageUrl
+  const aiDecision = await validateReportsWithAI({ 
+    description, 
+    action, 
+    imageUrl 
+  });
 
   if (!aiDecision.isValid) {
     throw {

@@ -81,12 +81,17 @@ function Dashboard() {
   const openSimulation = () => setIsSimOpen(true);
   const closeSimulation = () => setIsSimOpen(false);
 
-  const submitReport = async ({ action, description }) => {
+  const submitReport = async ({ action, description, file }) => {
     const user = JSON.parse(localStorage.getItem("besafe_user"));
+    const formData = new FormData();
+    formData.append("userId", user.id);
+    formData.append("action", action);
+    formData.append("description", description);
+    formData.append("image", file);
     
     try {
       // This triggers your validateReport logic on the backend/helper
-      await api.post("/reports", { userId: user.id, action, description });
+      await api.post("/reports", formData);
       
       await loadSummary();
       setFeedback({ 
@@ -96,14 +101,14 @@ function Dashboard() {
       closeReportModal();
     } catch (error) {
       // Extract the specific AI fields you defined in validateReport
-      const aiReason = error?.response?.data?.reason;
-      const aiMessage = error?.response?.data?.message;
+      const serverData = error?.response?.data;
+      const informativeReason = serverData?.reason || "Invalid Submission.";
 
       // Use a multi-line string or a formatted object for the toast
       // This ensures the user sees the "Gibberish" reason clearly
       setFeedback({ 
         type: "error", 
-        message: aiReason ? `${aiMessage}: ${aiReason}` : "Submission failed. Please try again."
+        message: informativeReason
       });
 
       // We do NOT close the modal so the user can see the reason and edit their text

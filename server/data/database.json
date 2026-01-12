@@ -4,22 +4,22 @@
       "id": 1,
       "username": "QueenB",
       "email": "Dafnatur@gmail.com",
-      "totalPoints": 3950,
+      "totalPoints": 4000,
       "weeklyCounts": {
-        "reportPost": 0,
+        "reportPost": 1,
         "safetyTips": 0,
-        "reportGood": 1,
+        "reportGood": 2,
         "simulation": 3
       },
       "monthlyCounts": {
-        "reportPost": 8,
+        "reportPost": 9,
         "safetyTips": 10,
-        "reportGood": 10,
+        "reportGood": 11,
         "simulation": 17
       },
       "weekKey": "2026-W03",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-12T10:48:15.534Z",
+      "lastReportTime": "2026-01-12T12:58:56.537Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false,
       "streak": {
@@ -985,6 +985,34 @@
         "newTotal": 3860
       },
       "timestamp": "2026-01-12T09:07:53.299Z"
+    },
+    {
+      "id": 1768221790812,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "Platform: Instagram\r\nLink: N/A\r\nDetails: Someone commented an encouraging message on my latest post!",
+      "imageUrl": "https://res.cloudinary.com/ddh5ffomn/image/upload/v1768221787/safety_reports/jy8jfsiwi53wawtal7ef.png",
+      "pointsEarned": {
+        "pointsEarned": 20,
+        "monthlyGoalAchieved": false,
+        "newTotal": 3970
+      },
+      "timestamp": "2026-01-12T12:43:10.812Z",
+      "aiReason": "The content shows positive, helpful, and inspiring comments."
+    },
+    {
+      "id": 1768222736539,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "Platform: Instagram\r\nLink: N/A\r\nDetails: These are comments in Hebrew calling for the person who posted the pictures to be gone and calling them a liar",
+      "imageUrl": "https://res.cloudinary.com/ddh5ffomn/image/upload/v1768222734/safety_reports/vf2gf2znupg6gakg4r1i.jpg",
+      "pointsEarned": {
+        "pointsEarned": 30,
+        "monthlyGoalAchieved": false,
+        "newTotal": 4000
+      },
+      "timestamp": "2026-01-12T12:58:56.539Z",
+      "aiReason": "The comments express hostility and call for the user to be removed, indicating harmful content."
     }
   ]
 }

@@ -5,59 +5,68 @@ dotenv.config();
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-export const validateReportsWithAI = async (description, action) => {
+// Update parameters to accept the imageUrl
+export const validateReportsWithAI = async ({ description, action, imageUrl }) => {
   const prompt = `
-You are an automated moderator for a web safety-reporting app.
-
-Action: "${action}"
-Description: "${description}"
-
+You are an automated moderator. 
+The user is reporting content categorized as: "${action}".
 Rules:
-- VALID: realistic safety concerns, helpful tips, or detailed reports.
-- INVALID: gibberish ("asdf"), low effort ("cool", "hi"), extremely vague or unrelated.
-- If unsure, mark INVALID.
+- If action is "reportPost": VALID if it shows harmful content or safety risks.
+- If action is "reportGood": VALID if it shows positive, helpful, or inspiring content.
+- Mark INVALID if the image is gibberish, unrelated to the description, or low effort.
 
-Return ONLY JSON with:
-{ "isValid": boolean, "reason": string }
+Response Instructions:
+- If VALID: Provide a short confirmation reason.
+- If INVALID: Provide a specific, polite explanation of why the evidence didn't match the category so the user can learn.
+
+Description: "${description}"
 `.trim();
 
   try {
-    const response = await openai.responses.create({
-      // apperantly this is a model that supports json_schema reliably
+    const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      input: prompt,
-      text: {
-        format: {
-          type: "json_schema",
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "text", text: prompt },
+            {
+              type: "image_url",
+              image_url: {
+                url: imageUrl, // The Cloudinary URL
+              },
+            },
+          ],
+        },
+      ],
+      response_format: {
+        type: "json_schema",
+        json_schema: {
           name: "validation_result",
           strict: true,
           schema: {
             type: "object",
-            additionalProperties: false,
             properties: {
               isValid: { type: "boolean" },
               reason: { type: "string" }
             },
-            required: ["isValid", "reason"]
+            required: ["isValid", "reason"],
+            additionalProperties: false
           }
         }
       }
     });
 
-    // grab the text output and JSON.parse it
-    const raw = response.output_text;
+    // OpenAI returns the JSON string in the message content
+    const raw = response.choices[0].message.content;
     return JSON.parse(raw);
+    
   } catch (error) {
-    // Log the real reason so you can see 401/429/400 etc.
-    console.error("AI Validator error:", {
-      status: error?.status,
-      message: error?.message,
-      error: error?.error
-    });
+    console.error("AI Validator error:", error.message);
 
-    // choose fail-closed or fail-open; for moderation fail-closed is safer
-    return { isValid: false, reason: "Validation service unavailable (OpenAI error)." };
+    return { 
+      isValid: false, 
+      reason: "Validation service unavailable (Vision/AI error)." 
+    };
   }
 };
-
-
