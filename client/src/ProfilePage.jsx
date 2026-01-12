@@ -1,23 +1,22 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+import "./styles/ProfilePage.css";
+import LogoutButton from "./components/LogoutButton";
+import SafetyPoints from "./components/SafetyPoints";
 
-/* ---------- Reusable Stat Card ---------- */
-const StatCard = ({ label, value, color }) => (
-  <div className={`${color} p-4 rounded-2xl text-center`}>
-    <span className="block text-2xl font-black">{value}</span>
-    <span className="text-xs uppercase font-semibold text-gray-600">
-      {label}
-    </span>
+const StatCard = ({ label, value, variant }) => (
+  <div className={`profile-stat profile-stat--${variant}`}>
+    <span className="profile-stat__value">{value}</span>
+    <span className="profile-stat__label">{label}</span>
   </div>
 );
 
 StatCard.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  color: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(["purple", "blue", "green", "yellow"]).isRequired,
 };
 
-/* ---------- Profile Page ---------- */
 function ProfilePage() {
   const navigate = useNavigate();
 
@@ -33,96 +32,110 @@ function ProfilePage() {
   const totalPoints = user?.totalPoints ?? 0;
   const purchaseHistory = user?.purchaseHistory || [];
 
+  const initial = (username[0] || "U").toUpperCase();
+
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="text-sm text-indigo-600 font-semibold"
-        >
-          ← Back to Dashboard
-        </button>
-      </div>
-
-      {/* Profile Card */}
-      <div className="bg-white rounded-3xl shadow-sm p-6 flex justify-between items-center mb-6">
-        <div className="flex items-center gap-4">
-          <div className="h-20 w-20 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-            {(username[0] || "U").toUpperCase()}
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">{displayName}</h1>
-            <p className="text-gray-500">{email}</p>
-          </div>
+    <div className="dashboard-page profile-page">
+      {/* NAV (matches Dashboard) */}
+      <nav className="dashboard-nav">
+        <div className="user-welcome">
+          <h1>{displayName}</h1>
+          <p className="profile-subtitle">{email || " "}</p>
         </div>
 
-        <div className="text-right">
-          <div className="text-orange-500 font-bold text-xl flex items-center gap-2">
-            🔥 {streakCurrent} Day Streak
+        <div className="nav-controls">
+          {/* Streak badge (same style) */}
+          <div className="streak-badge" title={`Best streak: ${streakBest}`}>
+            <span className="fire-icon">🔥</span>
+            <span className="streak-value">{streakCurrent}</span>
           </div>
-          <p className="text-xs text-gray-400">
-            Best: {streakBest} days
-          </p>
-        </div>
-      </div>
 
-      {/* Stats & Inventory */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Monthly Stats */}
-        <div className="md:col-span-2 bg-white rounded-3xl p-6 shadow-sm">
-          <h2 className="text-lg font-bold mb-4">
-            Monthly Performance {monthKey && `(${monthKey})`}
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <StatCard
-              label="Simulations"
-              value={monthlyCounts.simulation ?? 0}
-              color="bg-blue-50"
-            />
-            <StatCard
-              label="Safety Tips"
-              value={monthlyCounts.safetyTips ?? 0}
-              color="bg-green-50"
-            />
-            <StatCard
-              label="Good Reports"
-              value={monthlyCounts.reportGood ?? 0}
-              color="bg-yellow-50"
-            />
-            <StatCard
-              label="Total Points"
-              value={totalPoints}
-              color="bg-purple-50"
-            />
-          </div>
-        </div>
-
-        {/* Inventory */}
-        <div className="bg-white rounded-3xl p-6 shadow-sm">
-          <h2 className="text-lg font-bold mb-4">Inventory</h2>
-
-          {purchaseHistory.length === 0 ? (
-            <p className="text-sm text-gray-400">No purchases yet</p>
-          ) : (
-            <div className="space-y-3">
-              {purchaseHistory.slice(0, 5).map((item) => (
-                <div
-                  key={item.purchaseId}
-                  className="flex justify-between text-sm border-b pb-2"
-                >
-                  <span>{item.itemName}</span>
-                  <span className="font-mono text-gray-400">
-                    {item?.date
-                      ? new Date(item.date).toLocaleDateString()
-                      : ""}
-                  </span>
-                </div>
-              ))}
+          {/* Points shop button (same as Dashboard) */}
+          <button className="points-shop-button" onClick={() => navigate("/shop")}>
+            <div className="points-icon-container">
+              <span className="bank-icon">🏛️</span>
             </div>
-          )}
+            <div className="points-label-container">
+              <span className="points-label">SAFETY POINTS</span>
+              <SafetyPoints points={totalPoints} />
+            </div>
+          </button>
+
+          {/* Avatar button */}
+          <button className="profile-button" onClick={() => navigate("/dashboard")} title="Back to Dashboard">
+            <div className="profile-avatar">{initial}</div>
+          </button>
+
+          <LogoutButton />
         </div>
-      </div>
+      </nav>
+
+      {/* CONTENT */}
+      <main className="profile-main">
+        {/* Top identity card */}
+        <section className="profile-hero-card">
+          <div className="profile-hero-left">
+            <div className="profile-hero-avatar">{initial}</div>
+            <div className="profile-hero-meta">
+              <div className="profile-hero-name">{displayName}</div>
+              <div className="profile-hero-email">{email}</div>
+              <button className="profile-back-link" onClick={() => navigate("/dashboard")}>
+                ← Back to Dashboard
+              </button>
+            </div>
+          </div>
+
+          <div className="profile-hero-right">
+            <div className="profile-streak">
+              <span className="profile-streak__icon">🔥</span>
+              <div>
+                <div className="profile-streak__value">{streakCurrent} day streak</div>
+                <div className="profile-streak__sub">Best: {streakBest} days</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Grid */}
+        <section className="profile-grid">
+          {/* Monthly performance */}
+          <div className="profile-card profile-card--wide">
+            <div className="profile-card__title">
+              Monthly Performance {monthKey ? <span className="profile-card__muted">({monthKey})</span> : null}
+            </div>
+
+            <div className="profile-stats-grid">
+              <StatCard label="Simulations" value={monthlyCounts.simulation ?? 0} variant="blue" />
+              <StatCard label="Safety Tips" value={monthlyCounts.safetyTips ?? 0} variant="green" />
+              <StatCard label="Good Reports" value={monthlyCounts.reportGood ?? 0} variant="yellow" />
+              <StatCard label="Total Points" value={totalPoints} variant="purple" />
+            </div>
+          </div>
+
+          {/* Inventory */}
+          <div className="profile-card">
+            <div className="profile-card__title">Inventory</div>
+
+            {purchaseHistory.length === 0 ? (
+              <div className="profile-empty">No purchases yet</div>
+            ) : (
+              <div className="profile-list">
+                {purchaseHistory.slice(0, 5).map((item) => (
+                  <div key={item.purchaseId} className="profile-list-row">
+                    <span className="profile-list-row__name">{item.itemName}</span>
+                    <span className="profile-list-row__date">
+                      {item?.date ? new Date(item.date).toLocaleDateString() : ""}
+                    </span>
+                  </div>
+                ))}
+                <button className="profile-link-button" onClick={() => navigate("/shop")}>
+                  View all in Shop →
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

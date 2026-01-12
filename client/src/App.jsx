@@ -3,7 +3,7 @@ import Dashboard from "./Dashboard";
 import Login from "./LoginPage.jsx";
 import Register from "./Reigster.jsx";
 import StorePage from "./StorePage";
-import ProfilePage from "./ProfilePage";
+import Profile from "./ProfilePage.jsx";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/shop" element={<StorePage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
