@@ -33,5 +33,6 @@ export const login = async (req, res) => {
                 message: `Error verifying credentials: ${error.message}` 
             });
         }
+
     }
 };

@@ -10,6 +10,7 @@ import FeedbackToast from "./components/FeedbackToast";
 import SimulationModal from "./components/SimulationModal";
 // Removed TopLeftStats import
 import api from './services/api';
+import SafetyPoints from './components/SafetyPoints';
 
 function Dashboard() {
   const navigate = useNavigate(); 
@@ -132,16 +133,17 @@ function Dashboard() {
           <span className="streak-value">{userData.streak?.current ?? 0}</span>
         </div>
 
-        {/* Modern Shop Button (Coins) */}
-        <button className="points-shop-button" onClick={() => navigate("/shop")}>
-          <div className="points-icon-container">
-            <span className="bank-icon">🏛️</span>
-          </div>
-          <div className="points-label-container">
-            <span className="points-label">SAFETY POINTS</span>
-            <span className="points-amount">{userData.totalPoints?.toLocaleString() ?? 0}</span>
-          </div>
-        </button>
+      {/* Modern Shop Button (Coins) */}
+      <button className="points-shop-button" onClick={() => navigate("/shop")}>
+        <div className="points-icon-container">
+          <span className="bank-icon">🏛️</span>
+        </div>
+        <div className="points-label-container">
+          <span className="points-label">SAFETY POINTS</span>
+          {/* REPLACE THE OLD SPAN WITH THIS: */}
+          <SafetyPoints points={userData.totalPoints} />
+        </div>
+      </button>
 
         <button className="profile-button" onClick={() => navigate("/profile")}>
           <div className="profile-avatar">
