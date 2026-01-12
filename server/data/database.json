@@ -3,24 +3,23 @@
     {
       "id": 1,
       "username": "QueenB",
-      "password": "12345",
       "email": "Dafnatur@gmail.com",
-      "totalPoints": 3920,
+      "totalPoints": 3950,
       "weeklyCounts": {
         "reportPost": 0,
         "safetyTips": 0,
         "reportGood": 1,
-        "simulation": 2
+        "simulation": 3
       },
       "monthlyCounts": {
         "reportPost": 8,
         "safetyTips": 10,
         "reportGood": 10,
-        "simulation": 16
+        "simulation": 17
       },
       "weekKey": "2026-W03",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-12T09:46:32.112Z",
+      "lastReportTime": "2026-01-12T10:48:15.534Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false,
       "streak": {
@@ -32,6 +31,8 @@
         "displayName": "QueenB",
         "bio": "",
         "avatarUrl": "",
+        "achievements": [],
+        "friends": [],
         "privacy": {
           "showStats": true
         }
@@ -72,12 +73,12 @@
           "pricePaid": 10,
           "date": "2026-01-12T07:45:30.977Z"
         }
-      ]
+      ],
+      "hashedPassword": "$2b$10$XtZ4UO/GFv/ASiJ1KDsPpug9DaCucWlBNr4I7F.muF78WKxbGA7WG"
     },
     {
       "id": 2,
       "username": "userTest2",
-      "password": "12345",
       "email": "randomEmail@gmail.com",
       "totalPoints": 2365,
       "weeklyCounts": {
@@ -108,14 +109,15 @@
         "avatarUrl": "",
         "privacy": {
           "showStats": true
-        }
+        },
+        "achievements": []
       },
-      "purchaseHistory": []
+      "purchaseHistory": [],
+      "hashedPassword": "$2b$10$rqtScM5k95mPCx8dpwUJUetdCsuzLd.uzbn9HmdacdaQiD.sXV2RS"
     },
     {
       "id": 3,
       "username": "QueenB2",
-      "password": "12345",
       "email": "someemail@gmail.com",
       "totalPoints": 40,
       "weeklyCounts": {
@@ -146,7 +148,8 @@
         "avatarUrl": "",
         "privacy": {
           "showStats": true
-        }
+        },
+        "achievements": []
       },
       "purchaseHistory": [
         {
@@ -156,12 +159,12 @@
           "pricePaid": 10,
           "date": "2026-01-11T20:12:19.445Z"
         }
-      ]
+      ],
+      "hashedPassword": "$2b$10$0M8tTVYI6B4mk4egtcs/WOxy9UTlAk4/DiuiMnX8iwn7wfJMfUb0O"
     },
     {
       "id": 4,
       "username": "adar",
-      "password": "ggg",
       "email": "abc@gmail.com",
       "totalPoints": 10,
       "weeklyCounts": {
@@ -192,14 +195,15 @@
         "avatarUrl": "",
         "privacy": {
           "showStats": true
-        }
+        },
+        "achievements": []
       },
-      "purchaseHistory": []
+      "purchaseHistory": [],
+      "hashedPassword": "$2b$10$vX65bbXMcLJ6sqsfQd.ureKej0Wx28iod1YVe6jqdJGr6sB459GWq"
     },
     {
       "id": 5,
       "username": "nanobanana",
-      "password": "12345",
       "email": "asd@walla.com",
       "totalPoints": 0,
       "weeklyCounts": {
@@ -230,9 +234,50 @@
         "avatarUrl": "",
         "privacy": {
           "showStats": true
-        }
+        },
+        "achievements": []
       },
-      "purchaseHistory": []
+      "purchaseHistory": [],
+      "hashedPassword": "$2b$10$Ye4ZRirq30G4d5xCku6hUupTU1.ES6DxZH81byYVvR8zzMyycdycK"
+    },
+    {
+      "id": 6,
+      "username": "Dafna",
+      "hashedPassword": "$2b$10$2moUql1hAAZeNwvPEVQ4GuWmm9IibDCYQ1OkCz2ZYoTM0oZnOf0ra",
+      "email": "nonono@walla",
+      "totalPoints": 0,
+      "weeklyCounts": {
+        "reportPost": 0,
+        "safetyTips": 0,
+        "reportGood": 0,
+        "simulation": 0
+      },
+      "monthlyCounts": {
+        "reportPost": 0,
+        "safetyTips": 0,
+        "reportGood": 0,
+        "simulation": 0
+      },
+      "weekKey": "2026-W03",
+      "monthKey": "2026-01",
+      "achievedGoal": false,
+      "lastReportTime": null,
+      "monthlyGoalAchieved": false,
+      "streak": {
+        "current": 1,
+        "best": 1,
+        "lastActiveDate": "2026-01-12"
+      },
+      "profile": {
+        "displayName": "Dafna",
+        "bio": "",
+        "avatarUrl": "",
+        "achievements": [],
+        "friends": [],
+        "privacy": {
+          "showStats": true
+        }
+      }
     }
   ],
   "safety-tips": [
