@@ -1,17 +1,20 @@
+/* --- Base Styles --- */
 .dashboard-page {
-  background-color: #f0f2f5; /* Very light blue tint */
+  background-color: #f0f2f5;
   min-height: 100vh;
   padding: 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
 }
 
-/* Top Navigation Bar */
+/* --- Top Navigation Bar --- */
 .dashboard-nav {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   max-width: 1200px;
   margin: 0 auto 50px auto;
+  gap: 20px;
 }
 
 .user-welcome h1 {
@@ -253,6 +256,7 @@
   letter-spacing: 0.8px;
   opacity: 0.9;
   margin-bottom: -2px;
+  white-space: nowrap;
 }
 
 /* points-amount now handled via SafetyPoints component */
@@ -260,8 +264,10 @@
   font-size: 20px;
   font-weight: 900;
   line-height: 1;
+  color: white;
 }
 
+/* --- Profile & Q Button --- */
 .profile-button {
   background: white;
   border: 2px solid #e2e8f0;

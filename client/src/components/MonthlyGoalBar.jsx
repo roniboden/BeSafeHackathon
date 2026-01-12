@@ -11,7 +11,7 @@ function MonthlyGoalBar({
   const percent = total ? Math.min(100, (done / total) * 100) : 0;
 
   return (
-    <div style={{ marginTop: "30px", textAlign: "center" }}>
+    <div style={{ marginTop: "20px", textAlign: "center" }}>
       <h3>
         {title}: {done} / {total}
       </h3>
