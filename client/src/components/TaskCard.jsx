@@ -59,10 +59,13 @@ function TaskCard({ title, score, total, color, onUpdate }) {
 
       <button
         className="update-button"
-        style={{ backgroundColor: color }}
+        /* Logic: Switch to grey if reachedGoal is true, otherwise use the prop color */
+        style={{ backgroundColor: reachedGoal ? "#cbd5e0" : color }}
         onClick={() => onUpdate && onUpdate()}
+        /* This prevents the user from clicking the button when the goal is met */
+        disabled={reachedGoal}
       >
-        Update
+        {reachedGoal ? "Goal Reached" : "Update"}
       </button>
     </div>
   );

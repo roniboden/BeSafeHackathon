@@ -129,7 +129,6 @@
   fill: #a0aec0;
 }
 
-/* The Green "Goal Reached" Pill */
 .goal-badge {
   background-color: #ecfdf5;
   color: #10b981;
@@ -170,6 +169,15 @@
   opacity: 0.9;
   transform: translateY(-1px);
 }
+/* Styling for when the goal is reached and button is disabled */
+.update-button:disabled {
+  background-color: #cbd5e0 !important; /* Soft grey */
+  color: #718096; /* Darker grey text for readability */
+  cursor: not-allowed;
+  transform: none; /* Remove hover lift effect */
+  opacity: 1; /* Ensure it doesn't look too faded */
+  box-shadow: none;
+}
 
 .nav-controls {
   display: flex;
@@ -177,9 +185,8 @@
   align-items: center;
 }
 
-/* Streak Badge Refinement */
 .streak-badge {
-  background: #2d3748; /* Darker slate for contrast */
+  background: #2d3748;
   color: white;
   padding: 8px 16px;
   border-radius: 14px;
@@ -194,9 +201,9 @@
   font-size: 18px;
 }
 
-/* High-End Shop Button / Points Pill */
+/* Updated High-End Shop Button for Animation Support */
 .points-shop-button {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); /* Warm Amber/Orange */
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   border: none;
   border-radius: 20px;
   padding: 6px 20px 6px 8px;
@@ -206,6 +213,10 @@
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(217, 119, 6, 0.3);
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Critical Changes: */
+  position: relative;
+  overflow: visible; 
 }
 
 .points-shop-button:hover {
@@ -224,11 +235,16 @@
   font-size: 20px;
 }
 
+/* Updated Container for Animation Support */
 .points-label-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   color: white;
+  
+  /* Critical Changes: */
+  position: relative;
+  overflow: visible;
 }
 
 .points-label {
@@ -239,6 +255,7 @@
   margin-bottom: -2px;
 }
 
+/* points-amount now handled via SafetyPoints component */
 .points-amount {
   font-size: 20px;
   font-weight: 900;
@@ -261,7 +278,7 @@
 }
 
 .profile-button:hover {
-  border-color: #5c67f2; /* Matches your 'Create Account' link color */
+  border-color: #5c67f2;
   transform: scale(1.05);
 }
 
@@ -277,4 +294,45 @@
   font-weight: 800;
   font-size: 18px;
 }
+/* Add this at the very bottom of your Dashboard.css */
+@media (max-width: 768px) {
+  .task-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets/large phones */
+    gap: 15px;
+    padding: 0 10px;
+  }
 
+  .dashboard-nav {
+    flex-direction: column; /* Stack the welcome message and buttons */
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .nav-controls {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-grid {
+    grid-template-columns: 1fr; /* 1 column for small phones */
+  }
+  
+  .dashboard-page {
+    padding: 20px; /* Reduce heavy padding on mobile */
+  }
+}
+
+.dashboard-nav {
+  /* ... existing styles ... */
+  position: relative; /* Required for z-index to work */
+  z-index: 10001;     /* Must be higher than your Modal's backdrop (usually 1000-10000) */
+}
+
+/* Ensure the coins themselves are at the very top */
+.coin-burst {
+  z-index: 10002;
+}
