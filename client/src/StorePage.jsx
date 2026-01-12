@@ -103,7 +103,7 @@ function StorePage() {
         <p style={{ textAlign: 'center' }}>Loading...</p>
       ) : activeTab === 'shop' ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px', maxWidth: '1000px', margin: '0 auto' }}>
-          {products.map(product => (
+          {Array.isArray(products) && products.map(product => (
             <ProductCard
               key={product.id}
               product={{
