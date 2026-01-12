@@ -1,8 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
-import Dashboard from './Dashboard'; 
-import Login from './LoginPage.jsx';
-import Register from './Reigster.jsx';   
-import StorePage from './StorePage'; 
+import { BrowserRouter, Routes, Route } from "react-router";
+import Dashboard from "./Dashboard";
+import Login from "./LoginPage.jsx";
+import Register from "./Reigster.jsx";
+import StorePage from "./StorePage";
+import ProfilePage from "./ProfilePage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/shop" element={<StorePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -8,6 +8,7 @@ import tipRoutes from './routes/tipRoutes.js';
 import simulationRoutes from './routes/simulationRoutes.js';
 import {resetUsersWeeklyGoal} from './utils/databaseHelper.js';
 
+
 dotenv.config();
 
 const app = express();
