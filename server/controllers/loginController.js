@@ -34,8 +34,5 @@ export const login = async (req, res) => {
             });
         }
 
-        return res.status(401).json({
-            message: "Invalid username or password"
-        });
     }
 };
