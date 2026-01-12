@@ -9,151 +9,107 @@ import FeedbackToast from "./components/FeedbackToast";
 import SimulationModal from "./components/SimulationModal";
 import api from './services/api';
 
-
-
 function Dashboard() {
   const [userData, setUserData] = useState({
     username: "",
     totalPoints: 0,
-
     weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
-    weeklyTargets: { reportPost: 5, safetyTips: 5, reportGood: 5, simulation: 0 },
-
+    weeklyTargets: { reportPost: 5, safetyTips: 5, reportGood: 5, simulation: 5 },
     monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
     monthlyTargets: { reportPost: 20, safetyTips: 20, reportGood: 20, simulation: 20 },
-
     monthlyGoalAchieved: false
   });
   
   const [isLoading, setIsLoading] = useState(true);
+  const [isReportOpen, setIsReportOpen] = useState(false);
+  const [reportAction, setReportAction] = useState(null);
+  const [feedback, setFeedback] = useState({ type: "success", message: "" });
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const [isSimOpen, setIsSimOpen] = useState(false);
 
   const loadSummary = async () => {
     const user = JSON.parse(localStorage.getItem("besafe_user"));
     const userID = user?.id;
+    if (!userID) return;
 
-    if (!userID) {
-      console.error("User not found in localStorage");
-      setIsLoading(false);
-      return;
+    try {
+      const response = await api.get(`/reports/summary/${userID}`);
+      setUserData(response.data);
+    } catch (error) {
+      console.error("Error loading summary:", error);
     }
-
-    const response = await api.get(`/reports/summary/${userID}`);
-    setUserData(response.data);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    let isMounted = true;
+    
+    async function initDashboard() {
       try {
         await loadSummary();
-      } catch (error) {
-        console.error(error);
       } finally {
-        setIsLoading(false);
+        if (isMounted) setIsLoading(false);
       }
-    };
+    }
 
-    fetchData();
+    initDashboard();
+    return () => { isMounted = false; };
   }, []);
 
-  // report tasks
-  const [isReportOpen, setIsReportOpen] = useState(false);
-  const [reportAction, setReportAction] = useState(null);
-
-  const openReportModal = (action) => {
-    setReportAction(action);
-    setIsReportOpen(true);
-  };
-
-  const closeReportModal = () => {
-    setIsReportOpen(false);
-    setReportAction(null);
-  };
-
-  const [feedback, setFeedback] = useState({ type: "success", message: "" });
+  const openReportModal = (action) => { setReportAction(action); setIsReportOpen(true); };
+  const closeReportModal = () => { setIsReportOpen(false); setReportAction(null); };
+  const openSafetyQuiz = () => setIsQuizOpen(true);
+  const closeSafetyQuiz = () => setIsQuizOpen(false);
+  const openSimulation = () => setIsSimOpen(true);
+  const closeSimulation = () => setIsSimOpen(false);
 
   const showFeedback = (type, message) => {
     setFeedback({ type, message });
-    // auto-hide after 3.5s
-    window.clearTimeout(showFeedback._t);
-    showFeedback._t = window.setTimeout(() => {
-      setFeedback({ type: "success", message: "" });
-    }, 3500);
+    setTimeout(() => setFeedback({ type: "success", message: "" }), 3500);
   };
 
   const submitReport = async ({ action, description }) => {
     const user = JSON.parse(localStorage.getItem('besafe_user'));
     const userID = user?.id;
-
-    if(!userID){
-      console.log("User not found in report submission");
-      return;
-    }
-    try{
-    await api.post("/reports", {userID, action, description});
-    await loadSummary();
-    showFeedback("success", "Report accepted - keep it up!");
-    closeReportModal();
-    } catch (error){
-      const msg =
-        error?.response?.data?.reason ||
-        error?.response?.data?.message ||
-        error.message;
-
-        showFeedback("error", `Report rejected: ${msg}`);
+    try {
+      await api.post("/reports", { userID, action, description });
+      await loadSummary();
+      showFeedback("success", "Report accepted - keep it up!");
+      closeReportModal();
+    } catch (error) {
+      showFeedback("error", `Report rejected: ${error.message}`);
     }
   };
-  
-  //safety tips 
-  const [isQuizOpen, setIsQuizOpen] = useState(false);
 
-  const openSafetyQuiz = () => setIsQuizOpen(true);
-  const closeSafetyQuiz = () => setIsQuizOpen(false);
-
-  // simulation
-  const [isSimOpen, setIsSimOpen] = useState(false);
-  const openSimulation = () => setIsSimOpen(true);
-  const closeSimulation = () => setIsSimOpen(false);
-
-
-  if (isLoading) return <div style={{textAlign: 'center', marginTop: '50px'}}>Loading...</div>;
-
+  if (isLoading) {
+    return (
+      <div style={{ display: 'grid', placeItems: 'center', minHeight: '100vh', fontFamily: 'sans-serif', color: '#64748b' }}>
+        Loading Dashboard...
+      </div>
+    );
+  }
 
   return (
-    
-    <div style={{ 
-      backgroundColor: '#f0f2f5', 
-      minHeight: '100vh', 
-      padding: '20px',
-      fontFamily: 'Arial, sans-serif'
-    }}>
-      
+    <div style={styles.pageWrapper}>
       <LogoutButton />
-
-      <FeedbackToast
-      type={feedback.type}
-      message={feedback.message}
-      onClose={() => setFeedback({ type: "success", message: "" })}
+      <FeedbackToast 
+        type={feedback.type} 
+        message={feedback.message} 
+        onClose={() => setFeedback({ type: "success", message: "" })} 
       />
 
+      <SafetyTipQuizModal isOpen={isQuizOpen} onClose={closeSafetyQuiz} onSuccess={loadSummary} />
+      <SimulationModal isOpen={isSimOpen} onClose={closeSimulation} onSuccess={loadSummary} />
 
-      <SafetyTipQuizModal
-      isOpen={isQuizOpen}
-      onClose={closeSafetyQuiz}
-      onSuccess={loadSummary}
-      />
+      <div style={styles.container}>
+        <header style={styles.header}>
+          <div>
+            <h1 style={styles.h1}>Hello, {userData.username}! 👋</h1>
+            <p style={styles.subtitle}>Thanks for making the internet a safer place.</p>
+          </div>
+          <ScoreCenter score={userData.totalPoints} />
+        </header>
 
-      <h1 style={{ textAlign: 'center' }}>Hello, {userData.username}! 👋</h1>
-      <h4 style={{ textAlign: 'center' }}>Thanks for making the internet a safer place</h4>
-
-      <SimulationModal
-        isOpen={isSimOpen}
-        onClose={closeSimulation}
-        onSuccess={loadSummary}
-      />
-      
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-        
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '-20px' }}>
+        <div style={styles.grid}>
           <TaskCard 
             title="Simulation" 
             score={userData.weeklyCounts.simulation || 0} 
@@ -161,7 +117,6 @@ function Dashboard() {
             color="#7E57C2" 
             onUpdate={openSimulation}
           />
-
           <TaskCard 
             title="Report Post" 
             score={userData.weeklyCounts.reportPost || 0} 
@@ -169,14 +124,6 @@ function Dashboard() {
             color="#FF4D4D" 
             onUpdate={() => openReportModal("reportPost")}
           />
-        </div>
-
-        <div style={{ position: 'relative', zIndex: 10 }}> 
-          <ScoreCenter score={userData.totalPoints} />
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '-20px' }}>
-          
           <TaskCard 
             title="Safety Tips" 
             score={userData.weeklyCounts?.safetyTips || 0} 
@@ -184,7 +131,6 @@ function Dashboard() {
             color="#FF9F1C" 
             onUpdate={openSafetyQuiz} 
           />
-          
           <TaskCard 
             title="Report Good" 
             score={userData.weeklyCounts?.reportGood || 0} 
@@ -198,28 +144,29 @@ function Dashboard() {
           isOpen={isReportOpen}
           action={reportAction}
           onClose={closeReportModal}
-          onSubmit={async (payload) => {
-            try {
-              await submitReport(payload);
-            } catch (error) {
-              const msg =
-                error?.response?.data?.reason ||
-                error?.response?.data?.message ||
-                error.message;
-              alert(msg);
-              console.error(error);
-            }
-          }}
+          onSubmit={submitReport}
         />
         
-        <MonthlyGoalBar
-          monthlyCounts={userData.monthlyCounts}
-          monthlyTargets={userData.monthlyTargets}
-          actions={["reportPost", "safetyTips", "reportGood"]}
-        />
+        <div style={styles.footerCard}>
+          <MonthlyGoalBar
+            monthlyCounts={userData.monthlyCounts}
+            monthlyTargets={userData.monthlyTargets}
+            actions={["reportPost", "safetyTips", "reportGood"]}
+          />
         </div>
+      </div>
     </div>
   );
 }
+
+const styles = {
+  pageWrapper: { backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px 20px', fontFamily: '"Inter", system-ui, sans-serif' },
+  container: { maxWidth: '1100px', margin: '0 auto' },
+  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '48px', flexWrap: 'wrap', gap: '20px' },
+  h1: { fontSize: '32px', fontWeight: '800', color: '#0f172a', margin: 0 },
+  subtitle: { color: '#64748b', fontSize: '16px', marginTop: '6px' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px', marginBottom: '48px' },
+  footerCard: { background: '#ffffff', padding: '32px', borderRadius: '24px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', border: '1px solid #e2e8f0' }
+};
 
 export default Dashboard;
