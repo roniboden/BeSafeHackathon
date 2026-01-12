@@ -1,6 +1,8 @@
 import { readDB, saveDB } from "../utils/databaseHelper.js";
+import bcrypt from 'bcryptjs';
 
-export const register = (req, res) => {
+
+export const register = async (req, res) => {
     const { username, password, email } = req.body;
     const db = readDB();
 
@@ -18,45 +20,58 @@ export const register = (req, res) => {
         return res.status(409).json({ message: "email already exists" });
     }
 
-    const nextId = db.users.length ? Math.max(...db.users.map(u => u.id)) + 1 : 1;
+    try {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      
+      const nextId = db.users.length ? Math.max(...db.users.map(u => u.id)) + 1 : 1;
 
-    const newUser = {
-        id: nextId,
-        username,
-        password,   // (yes, plain text for now)
-        email,
-        totalPoints: 0,
-        weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
-        monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
-        weekKey: db.users[0]?.weekKey || "2026-W02",
-        monthKey: db.users[0]?.monthKey || "2026-01",
-        achievedGoal: false,
-        lastReportTime: null,
-        monthlyGoalAchieved: false,
-        streak : {
-        current: 1,
-        best: 1,
-        lastActiveDate: new Date().toISOString().slice(0, 10)
-      },
-      profile: {
-        displayName: username,
-        bio: "",
-        avatarUrl: "",
-        privacy: {
-          showStats: true
+      const newUser = {
+          id: nextId,
+          username,
+          hashedPassword,   // secured now
+          email,
+          totalPoints: 0,
+          weeklyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
+          monthlyCounts: { reportPost: 0, safetyTips: 0, reportGood: 0, simulation: 0 },
+          weekKey: db.users[0]?.weekKey || "2026-W02",
+          monthKey: db.users[0]?.monthKey || "2026-01",
+          achievedGoal: false,
+          lastReportTime: null,
+          monthlyGoalAchieved: false,
+          streak : {
+          current: 1,
+          best: 1,
+          lastActiveDate: new Date().toISOString().slice(0, 10)
+        },
+        profile: {
+          displayName: username,
+          bio: "",
+          avatarUrl: "",
+          achievements: [],
+          friends: [],
+          privacy: {
+            showStats: true
+          }
         }
+
       }
-    };
 
-    db.users.push(newUser);
-    saveDB(db);
+      db.users.push(newUser);
+      saveDB(db);
 
-    return res.status(201).json({
-        message: "Registration successful",
-        user: {
-        id: newUser.id,
-        username: newUser.username,
-        totalPoints: newUser.totalPoints
-        }
-  });
+      return res.status(201).json({
+          message: "Registration successful",
+          user: {
+          id: newUser.id,
+          username: newUser.username,
+          totalPoints: newUser.totalPoints
+          }
+    });
+    
+    } catch (error) {
+        return res.status(500).json({ message: "Error creating user", reason: error.message });
+    }
+
+    
 };
