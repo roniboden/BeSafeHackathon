@@ -72,6 +72,209 @@
           "itemName": "iPhone 17",
           "pricePaid": 10,
           "date": "2026-01-12T07:45:30.977Z"
+        },
+        {
+          "purchaseId": 1768226453319,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:00:53.319Z"
+        },
+        {
+          "purchaseId": 1768226461584,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:01:01.584Z"
+        },
+        {
+          "purchaseId": 1768226710980,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:05:10.980Z"
+        },
+        {
+          "purchaseId": 1768226833085,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:07:13.085Z"
+        },
+        {
+          "purchaseId": 1768226864678,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:07:44.678Z"
+        },
+        {
+          "purchaseId": 1768226866203,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:07:46.203Z"
+        },
+        {
+          "purchaseId": 1768226867771,
+          "itemId": "iPad_air",
+          "itemName": "iPad Air 5",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:07:47.771Z"
+        },
+        {
+          "purchaseId": 1768227070894,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:11:10.894Z"
+        },
+        {
+          "purchaseId": 1768227133514,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:12:13.514Z"
+        },
+        {
+          "purchaseId": 1768227138156,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:12:18.156Z"
+        },
+        {
+          "purchaseId": 1768227240489,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:14:00.489Z"
+        },
+        {
+          "purchaseId": 1768228200976,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:30:00.976Z"
+        },
+        {
+          "purchaseId": 1768228208035,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:30:08.035Z"
+        },
+        {
+          "purchaseId": 1768228227250,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:30:27.250Z"
+        },
+        {
+          "purchaseId": 1768228266605,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:31:06.605Z"
+        },
+        {
+          "purchaseId": 1768228487531,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:34:47.531Z"
+        },
+        {
+          "purchaseId": 1768228624899,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:37:04.899Z"
+        },
+        {
+          "purchaseId": 1768228700243,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:38:20.243Z"
+        },
+        {
+          "purchaseId": 1768228704370,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:38:24.370Z"
+        },
+        {
+          "purchaseId": 1768228925794,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:42:05.794Z"
+        },
+        {
+          "purchaseId": 1768229171471,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:46:11.471Z"
+        },
+        {
+          "purchaseId": 1768229174760,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:46:14.760Z"
+        },
+        {
+          "purchaseId": 1768229598792,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T14:53:18.792Z"
+        },
+        {
+          "purchaseId": 1768229778547,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T14:56:18.547Z"
+        },
+        {
+          "purchaseId": 1768230167394,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T15:02:47.394Z"
+        },
+        {
+          "purchaseId": 1768230184258,
+          "itemId": "iPad_air",
+          "itemName": "iPad Air 5",
+          "pricePaid": 10,
+          "date": "2026-01-12T15:03:04.258Z"
+        },
+        {
+          "purchaseId": 1768230299603,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T15:04:59.603Z"
+        },
+        {
+          "purchaseId": 1768230399847,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-12T15:06:39.847Z"
+        },
+        {
+          "purchaseId": 1768231151078,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T15:19:11.078Z"
         }
       ],
       "hashedPassword": "$2b$10$XtZ4UO/GFv/ASiJ1KDsPpug9DaCucWlBNr4I7F.muF78WKxbGA7WG"
