@@ -4,15 +4,22 @@ import PropTypes from 'prop-types';
 const SafetyPoints = ({ points }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const prevPoints = useRef(points);
+  
+  // 1. Initialize the audio object (referencing the file in /public)
+  const coinSound = useRef(new Audio("/coin-clink.mp3"));
 
   useEffect(() => {
-    if (points > prevPoints.current) {
-      // Step 1: Trigger the animation
-      const trigger = setTimeout(() => setIsAnimating(true), 0);
+    if (points > prevPoints.current && prevPoints.current !== undefined) {
       
-      // Step 2: Keep coins visible for longer (2 seconds total)
+      // 2. Play the sound
+      // Reset currentTime to 0 so the sound can play rapidly if points are added quickly
+      coinSound.current.currentTime = 0; 
+      coinSound.current.play().catch(err => console.error("Audio playback failed:", err));
+
+      const trigger = setTimeout(() => setIsAnimating(true), 0);
       const timer = setTimeout(() => setIsAnimating(false), 2000);
 
+      prevPoints.current = points;
       return () => {
         clearTimeout(trigger);
         clearTimeout(timer);
@@ -23,7 +30,6 @@ const SafetyPoints = ({ points }) => {
 
   return (
     <div className="safety-points-container" style={{ position: 'relative' }}>
-      {/* Renders 5 distinct coins when triggered */}
       {isAnimating && (
         <>
           <span className="coin-burst c1">🪙</span>
@@ -39,7 +45,6 @@ const SafetyPoints = ({ points }) => {
       </span>
 
       <style>{`
-        /* The main burst animation */
         @keyframes fountain {
           0% { transform: translate(-50%, 0) scale(0.5); opacity: 0; }
           15% { opacity: 1; }
@@ -52,12 +57,10 @@ const SafetyPoints = ({ points }) => {
           top: -10px;
           font-size: 1.5rem;
           pointer-events: none;
-          z-index: 100;
-          /* Each coin uses the same keyframe but different variables */
+          z-index: 10002; /* High z-index to show over modal overlay */
           animation: fountain 1.5s ease-out forwards;
         }
 
-        /* Define different paths for each coin */
         .c1 { --x: -60px; --y: -120px; animation-delay: 0.0s; }
         .c2 { --x: -30px; --y: -150px; animation-delay: 0.1s; }
         .c3 { --x: 0px;   --y: -180px; animation-delay: 0.2s; }
