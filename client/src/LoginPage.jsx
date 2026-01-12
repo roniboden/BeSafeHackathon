@@ -1,85 +1,53 @@
 import { useState } from 'react';
 import api from './services/api'; 
 import { useNavigate } from 'react-router';
+import './styles/Auth.css'; // Import the new CSS
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // New state for error messages
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    setError(''); // Clear previous errors before trying again
-    
+    setError('');
     try {
       const response = await api.post('/auth/login', { username, password });
       localStorage.setItem('besafe_user', JSON.stringify(response.data.user));
       navigate('/dashboard');
     } catch (err) {
-      // Check if the backend sent a specific message, otherwise use a default
-      const message = err.response?.data?.message || "Something went wrong. Try again.";
-      setError(message);
+      setError(err.response?.data?.message || "Something went wrong.");
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '100px', fontFamily: 'Arial' }}>
-      <h1>BeSafe Login</h1>
-      
-      {/* Conditionally show the error message in red */}
-      {error && (
-        <p style={{ color: '#FF4D4D', fontWeight: 'bold', marginBottom: '15px' }}>
-          {error}
-        </p>
-      )}
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-icon">🛡️</div>
+        <h2 className="auth-title">BeSafe</h2>
+        <p className="auth-subtitle">Enter your details to access your dashboard</p>
 
-      <input 
-        placeholder="Username" 
-        style={inputStyle}
-        onChange={e => setUsername(e.target.value)} 
-      /><br/>
-      
-      <input 
-        type="password" 
-        placeholder="Password" 
-        style={inputStyle}
-        onChange={e => setPassword(e.target.value)} 
-      /><br/>
-      
-      <button 
-        onClick={handleLogin}
-        style={{ padding: '10px 20px', cursor: 'pointer', backgroundColor: '#00C851', color: 'white', border: 'none', borderRadius: '5px' }}
-      >
-        Enter Dashboard
-      </button>
+        {error && <p className="error-msg">{error}</p>}
 
-      <div style={{ marginTop: "18px" }}>
-        
-      <button
-        onClick={() => navigate("/register")}
-        style={{
-          background: "none",
-          border: "none",
-          color: "#555",
-          textDecoration: "underline",
-          cursor: "pointer",
-        }}
-      >
-        New here? Create an account
-      </button>
-</div>
+        <div className="input-group">
+          <label className="input-label">Username</label>
+          <input className="auth-input" placeholder="e.g. QueenB" onChange={e => setUsername(e.target.value)} />
+        </div>
 
+        <div className="input-group">
+          <label className="input-label">Password</label>
+          <input className="auth-input" type="password" placeholder="........" onChange={e => setPassword(e.target.value)} />
+        </div>
+
+        <button className="auth-button" onClick={handleLogin}>Enter Dashboard</button>
+
+        <div className="auth-footer">
+          <p style={{ margin: 0, color: '#888', fontSize: '14px' }}>New here?</p>
+          <button className="auth-link" onClick={() => navigate("/register")}>Create an account</button>
+        </div>
+      </div>
     </div>
   );
 }
-
-
-const inputStyle = {
-  padding: '10px',
-  margin: '5px',
-  width: '250px',
-  borderRadius: '5px',
-  border: '1px solid #ccc'
-};
 
 export default Login;

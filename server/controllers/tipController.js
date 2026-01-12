@@ -1,15 +1,6 @@
 import { readDB, saveDB } from "../utils/databaseHelper.js";
-import { updateUserPoints } from "../services/pointsService.js"; // uses action="safetyTips"
-import { updateGoalStatus } from "../services/goalService.js";
-import { ensurePeriodsCurrent } from "../services/periodService.js";
-import { applyDailyStreak } from "../utils/streak.js";
+import { updateUserPoints } from "../services/pointsService.js";
 
-/**
- * get a random tip for the user
- * @param {*} req 
- * @param {*} res 
- * @returns 
- */
 export const getRandomTip = (_req, res) => {
   const db = readDB();
   const tips = db["safety-tips"] || [];
@@ -18,68 +9,54 @@ export const getRandomTip = (_req, res) => {
 
   const tip = tips[Math.floor(Math.random() * tips.length)];
 
-  // IMPORTANT: we want to avoid sending the correct answer to the client :(
+  // Transform the string array into an object array for React
+  const formattedOptions = tip.quiz.options.map((optionText, index) => ({
+    id: `opt-${index}`, // Create a temporary ID
+    text: optionText
+  }));
+
   return res.status(200).json({
     id: tip.id,
     title: tip.title,
-    text: tip.text,
-    quiz: {
-      question: tip.quiz.question,
-      options: tip.quiz.options
-    }
+    scenario: tip.text, 
+    question: tip.quiz.question, // Added the question text
+    options: formattedOptions 
   });
 };
 
 export const submitTipAnswer = (req, res) => {
   try {
-    const { userID, tipId, selectedAnswer } = req.body;
+    const { userID, tipId, selectedAnswer } = req.body; // selectedAnswer will be the text string
 
     const db = readDB();
     const user = db.users.find(u => u.id === Number(userID));
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    ensurePeriodsCurrent(user);
-
     const tips = db["safety-tips"] || [];
     const tip = tips.find(t => t.id === tipId);
     if (!tip) return res.status(404).json({ message: "Tip not found" });
 
-    if (!tipId || !selectedAnswer) {
-        return res.status(400).json({ message: "Missing tipId or selectedAnswer" });
-    }
-
+    // Compare the selected text directly to the correctAnswer string in DB
     const isCorrect = selectedAnswer === tip.quiz.correctAnswer;
 
     if (!isCorrect) {
-      saveDB(db);
       return res.status(200).json({
         isCorrect: false,
-        message: "Wrong answer, try again!",
-        newTotalPoints: user.totalPoints,
-        weeklyCounts: user.weeklyCounts,
-        monthlyCounts: user.monthlyCounts
+        explanation: `Not quite. The correct answer is: ${tip.quiz.correctAnswer}`,
+        message: "Try another one!"
       });
     }
 
-    const pointsEarned = updateUserPoints(user, "safetyTips");
-    applyDailyStreak(user); // update streak
-    const monthlyGoalAchieved = updateGoalStatus(user);
-
+    const { pointsEarned, newTotal } = updateUserPoints(user, "safetyTips");
     saveDB(db);
 
     return res.status(200).json({
       isCorrect: true,
-      message: `Correct! You earned ${pointsEarned} points, keep it up!`,
+      explanation: "Exactly! Being mindful of your digital footprint keeps you safe.",
       pointsEarned,
-      newTotalPoints: user.totalPoints,
-      weeklyCounts: user.weeklyCounts,
-      monthlyCounts: user.monthlyCounts,
-      monthlyGoalAchieved
+      newTotalPoints: newTotal
     });
   } catch (error) {
-    return res.status(error.status || 500).json({
-      message: error.message || "Server error",
-      reason: error.reason || "Safety tips answer submit failed"
-    });
+    return res.status(500).json({ message: "Server error", reason: error.message });
   }
 };

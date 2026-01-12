@@ -1,7 +1,7 @@
 import { readDB, saveDB } from "../utils/databaseHelper.js";
 import OpenAI from "openai";
 import dotenv from "dotenv";
-import {applyDailyStreak} from "../utils/streak.js";
+import { updateUserPoints } from "../services/pointsService.js";
 
 dotenv.config();
 
@@ -25,13 +25,12 @@ function findScenario(db, scenarioId) {
 function findNode(scenario, nodeId) {
   return scenario.nodes?.find((n) => n.id === nodeId);
 }
+export async function coachScenario(req, res) {
+  try {
+    const { scenarioId, nodeId, userText } = req.body;
 
-export async function advancedStepScenario(req,res){
-    try {
-    const { scenarioId, nodeId, userText, userId } = req.body;
-
-    if (!scenarioId || !nodeId || !userText) {
-      return res.status(400).json({ error: "scenarioId, nodeId, and userText are required" });
+    if (!scenarioId || !nodeId) {
+      return res.status(400).json({ error: "scenarioId and nodeId are required" });
     }
 
     const db = readDB();
@@ -42,123 +41,78 @@ export async function advancedStepScenario(req,res){
     if (!node) return res.status(404).json({ error: "Node not found" });
 
     const options = node.options || [];
-    if (!options.length) {
-      return res.status(500).json({ error: "This node has no options to choose from." });
-    }
+    if (!options.length) return res.status(500).json({ error: "Node has no options" });
 
     const text = clampText(userText, 500);
 
-    // Ask AI to map free text → one of the existing option IDs
     const prompt = `
-      You are helping map a user's free-text response to a multiple-choice option in a safety simulation.
+      You are a Safety Coach for a youth online-safety simulation.
 
-      Scenario category: ${scenario.category}
-      Channel: ${scenario.channel}
-      Scenario title: ${scenario.title}
+      CRITICAL RULES:
+      - Do NOT roleplay as the other person.
+      - Provide coaching, but your selected optionId MUST reflect what the user said they would do.
+      - Do NOT "upgrade" the user's choice to a safer option if the user clearly described an unsafe action.
+      - Only choose the safest option if the user is unclear or explicitly asks for advice ("what should I do?").
 
-      Current message:
-      "${node.message}"
+      Return JSON: coachMessage (2-4 sentences), followUpQuestion (short or empty), optionId, reason (1 sentence max).
 
-      Available options (choose exactly one):
+      Scenario: ${scenario.title} (${scenario.category}, ${scenario.channel})
+      Current message: "${node.message}"
+      Red flags: ${(node.redFlagsHere || []).join("; ")}
+
+      Options:
       ${options.map(o => `- ${o.id}: ${o.text}`).join("\n")}
 
-      User typed response:
-      "${text}"
-
-      Rules:
-      - Pick the single best matching optionId from the list.
-      - If the user response is unclear, pick the SAFEST option among the available ones.
-      - Do NOT invent new options.
-      Return JSON with keys: optionId, reason (max 1 sentence).
+      User: "${text}"
       `.trim();
+
 
     const ai = await openai.responses.create({
       model: "gpt-4.1-mini",
-      input: prompt,          // string is fine
+      input: prompt,
       temperature: 0.2,
       text: {
         format: {
           type: "json_schema",
-          name: "advanced_choice",
+          name: "coach_pick",
           strict: true,
           schema: {
             type: "object",
             additionalProperties: false,
             properties: {
+              coachMessage: { type: "string" },
+              followUpQuestion: { type: "string" },
               optionId: { type: "string" },
               reason: { type: "string" }
             },
-            required: ["optionId", "reason"]
+            required: ["coachMessage", "followUpQuestion", "optionId", "reason"]
           }
         }
       }
     });
 
-    // Parse JSON safely (OpenAI SDK returns structured output; still guard)
     const parsed = JSON.parse(ai.output_text);
-    const chosenOptionId = parsed.optionId;
-    const reason = parsed.reason || "";
 
-
-    const picked = options.find(o => o.id === chosenOptionId) || null;
-
-    // If AI returns something invalid, fallback to safest option (last-resort)
-    const fallbackSafe =
-      options.find(o => /verify|official|report|block|mute|stop/i.test(o.text)) || options[0];
-
-    const finalPick = picked || fallbackSafe;
-
-    const nextId = finalPick.nextNodeId;
-
-    // If ending
-    const ending = scenario.endings?.[nextId];
-    if (ending) {
-      const pointsEarned = Number(ending.pointsReward ?? 0);
-
-      if (userId != null) {
-        const user = (db.users || []).find((u) => u.id === Number(userId));
-        if (user) {
-          user.totalPoints = Number(user.totalPoints || 0) + pointsEarned;
-          user.weeklyCounts.simulation = (user.weeklyCounts.simulation || 0) + 1;
-          user.monthlyCounts.simulation = (user.monthlyCounts.simulation || 0) + 1;
-          saveDB(db);
-        }
-      }
-
-      const handlingSummary = db.handlingSummaries?.[scenario.category] ?? null;
-
-      return res.json({
-        done: true,
-        ai: {
-          chosenOptionId: finalPick.id,
-          chosenOptionText: finalPick.text,
-          reason
-        },
-        ending: { type: ending.type, summary: ending.summary },
-        result: { scenarioId, pointsEarned, handlingSummary }
-      });
-    }
-
-    // Next node
-    const nextNode = findNode(scenario, nextId);
-    if (!nextNode) return res.status(500).json({ error: `Next node "${nextId}" not found` });
+    // Ensure optionId is valid, otherwise neutral fallback
+    const picked = options.find(o => o.id === parsed.optionId) || options[0];
 
     return res.json({
-      done: false,
-      ai: {
-        chosenOptionId: finalPick.id,
-        chosenOptionText: finalPick.text,
-        reason
+      coach: {
+        message: clampText(parsed.coachMessage, 800),
+        followUp: clampText(parsed.followUpQuestion, 200)
       },
-      node: { id: nextNode.id, message: nextNode.message, options: nextNode.options }
+      suggestion: {
+        optionId: picked.id,
+        optionText: picked.text,
+        reason: clampText(parsed.reason, 200)
+      }
     });
   } catch (error) {
-      console.error("advancedStepScenario error:", error?.message);
-      console.error("openai error details:", error?.response?.data || error);
-      return res.status(500).json({ error: "Failed to run advanced step" });
+    console.error("coachScenario error:", error?.message);
+    return res.status(500).json({ error: "Failed to coach scenario" });
   }
-
 }
+
 
 // GET /simulations/scenario?category=phishing
 export function getScenario(req, res) {
@@ -225,35 +179,28 @@ export function stepScenario(req, res) {
     // Check if nextId is an ending
     const ending = scenario.endings?.[nextId];
     if (ending) {
-      const pointsEarned = Number(ending.pointsReward ?? 0);
+      let pointsData = {
+        pointsEarned: Number(ending.pointsReward ?? 0),
+        monthlyGoalAchieved: false,
+        newTotalPoints: 0
+      };
 
       // Add points if userId provided
       if (userId != null) {
         const user = (db.users || []).find((u) => u.id === Number(userId));
         if (user) {
-          user.totalPoints = Number(user.totalPoints || 0) + pointsEarned;
-          user.weeklyCounts.simulation = (user.weeklyCounts.simulation || 0) + 1;
-          user.monthlyCounts.simulation = (user.monthlyCounts.simulation || 0) + 1;
-          applyDailyStreak(user);
+          const result = updateUserPoints(user, "simulation");
+          pointsData.monthlyGoalAchieved = result.monthlyGoalAchieved;
+          pointsData.newTotalPoints = result.newTotal;
+          saveDB(db);
           saveDB(db);
         }
       }
 
-      // Optional: include handlingSummary from the same DB (recommended)
-      const handlingSummary = db.handlingSummaries?.[scenario.category] ?? null;
-
       return res.json({
         done: true,
-        ending: {
-          type: ending.type,
-          summary: ending.summary,
-        },
-        result: {
-          scenarioId,
-          category: scenario.category,
-          pointsEarned,
-          handlingSummary,
-        },
+        ending: { type: ending.type, summary: ending.summary },
+        result: pointsData
       });
     }
 

@@ -1,114 +1,63 @@
 import { useState } from "react";
 import api from "./services/api";
 import { useNavigate } from "react-router";
+import './styles/Auth.css'; // Import the same CSS
 
 function Register() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");        
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");     
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async () => {
     setError("");
     setSuccess("");
-
     try {
       const response = await api.post("/auth/register", { username, email, password });
-      console.log()
-
-      // auto-login after registration by saving returned user
       localStorage.setItem("besafe_user", JSON.stringify(response.data.user));
-
-      setSuccess("Registration successful! Redirecting...");
-      setTimeout(() => navigate("/dashboard"), 600);
+      setSuccess("Account created! Redirecting...");
+      setTimeout(() => navigate("/dashboard"), 1500);
     } catch (err) {
-      const message = err.response?.data?.message || "Something went wrong. Try again.";
-      setError(message);
+      setError(err.response?.data?.message || "Something went wrong.");
     }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "100px", fontFamily: "Arial" }}>
-      <h1>BeSafe Registration</h1>
+    <div className="auth-container">
+      <div className="auth-card">
+        <div className="auth-icon">🛡️</div>
+        <h2 className="auth-title">BeSafe</h2>
+        <p className="auth-subtitle">Create your account to get started</p>
 
-      {error && (
-        <p style={{ color: "#FF4D4D", fontWeight: "bold", marginBottom: "15px" }}>
-          {error}
-        </p>
-      )}
+        {error && <p className="error-msg">{error}</p>}
+        {success && <p className="success-msg">{success}</p>}
 
-      {success && (
-        <p style={{ color: "#00C851", fontWeight: "bold", marginBottom: "15px" }}>
-          {success}
-        </p>
-      )}
+        <div className="input-group">
+          <label className="input-label">Username</label>
+          <input className="auth-input" value={username} placeholder="e.g. QueenB" onChange={(e) => setUsername(e.target.value)} />
+        </div>
 
-      <input
-        placeholder="Username"
-        style={inputStyle}
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <br />
+        <div className="input-group">
+          <label className="input-label">Email Address</label>
+          <input className="auth-input" value={email} placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)} />
+        </div>
 
-      <input
-        placeholder="Email"
-        style={inputStyle}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
+        <div className="input-group">
+          <label className="input-label">Password</label>
+          <input className="auth-input" type="password" value={password} placeholder="........" onChange={(e) => setPassword(e.target.value)} />
+        </div>
 
-      <input
-        type="password"
-        placeholder="Password"
-        style={inputStyle}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
+        <button className="auth-button" onClick={handleRegister}>Create Account</button>
 
-      <button
-        onClick={handleRegister}
-        style={{
-          padding: "10px 20px",
-          cursor: "pointer",
-          backgroundColor: "#4285F4",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          marginTop: "10px",
-        }}
-      >
-        Create Account
-      </button>
-
-      <div style={{ marginTop: "20px" }}>
-        <button
-          onClick={() => navigate("/")}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#555",
-            textDecoration: "underline",
-            cursor: "pointer",
-          }}
-        >
-          Back to Login
-        </button>
+        <div className="auth-footer">
+          <p style={{ margin: 0, color: '#888', fontSize: '14px' }}>Already have an account?</p>
+          <button className="auth-link" onClick={() => navigate("/")}>Back to Login</button>
+        </div>
       </div>
     </div>
   );
 }
-
-const inputStyle = {
-  padding: "10px",
-  margin: "5px",
-  width: "250px",
-  borderRadius: "5px",
-  border: "1px solid #ccc",
-};
 
 export default Register;

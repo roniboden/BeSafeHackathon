@@ -4,29 +4,29 @@
       "id": 1,
       "username": "QueenB",
       "password": "12345",
-      "email": "SomeEmail@gmail.com",
-      "totalPoints": 3990,
+      "email": "Dafnatur@gmail.com",
+      "totalPoints": 3860,
       "weeklyCounts": {
-        "reportPost": 6,
-        "safetyTips": 9,
-        "reportGood": 9,
-        "simulation": 7
+        "reportPost": 0,
+        "safetyTips": 0,
+        "reportGood": 1,
+        "simulation": 0
       },
       "monthlyCounts": {
-        "reportPost": 7,
-        "safetyTips": 9,
-        "reportGood": 9,
-        "simulation": 7
+        "reportPost": 8,
+        "safetyTips": 10,
+        "reportGood": 10,
+        "simulation": 14
       },
-      "weekKey": "2026-W02",
+      "weekKey": "2026-W03",
       "achievedGoal": false,
-      "lastReportTime": "2026-01-11T14:09:13.567Z",
+      "lastReportTime": "2026-01-12T09:07:53.293Z",
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false,
       "streak": {
-        "current": 2,
-        "best": 2,
-        "lastActiveDate": "2026-01-11"
+        "current": 3,
+        "best": 3,
+        "lastActiveDate": "2026-01-12"
       },
       "profile": {
         "displayName": "QueenB",
@@ -35,25 +35,62 @@
         "privacy": {
           "showStats": true
         }
-      }
+      },
+      "purchaseHistory": [
+        {
+          "purchaseId": 1768159762782,
+          "itemId": "iPad_air",
+          "itemName": "iPad Air 5",
+          "pricePaid": 10,
+          "date": "2026-01-11T19:29:22.782Z"
+        },
+        {
+          "purchaseId": 1768160490312,
+          "itemId": "iPad_air",
+          "itemName": "iPad Air 5",
+          "pricePaid": 10,
+          "date": "2026-01-11T19:41:30.312Z"
+        },
+        {
+          "purchaseId": 1768160526021,
+          "itemId": "Garmin_Watch",
+          "itemName": "Garmin Watch",
+          "pricePaid": 80,
+          "date": "2026-01-11T19:42:06.021Z"
+        },
+        {
+          "purchaseId": 1768203843444,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T07:44:03.444Z"
+        },
+        {
+          "purchaseId": 1768203930977,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-12T07:45:30.977Z"
+        }
+      ]
     },
     {
       "id": 2,
       "username": "userTest2",
       "password": "12345",
       "email": "randomEmail@gmail.com",
-      "totalPoints": 2160,
+      "totalPoints": 2365,
       "weeklyCounts": {
         "reportPost": 6,
         "safetyTips": 5,
         "reportGood": 5,
-        "simulation": 0
+        "simulation": 8
       },
       "monthlyCounts": {
         "reportPost": 6,
         "safetyTips": 5,
         "reportGood": 5,
-        "simulation": 0
+        "simulation": 8
       },
       "weekKey": "2026-W02",
       "achievedGoal": false,
@@ -61,9 +98,9 @@
       "monthKey": "2026-01",
       "monthlyGoalAchieved": false,
       "streak": {
-        "current": 1,
-        "best": 1,
-        "lastActiveDate": "2026-01-10"
+        "current": 2,
+        "best": 2,
+        "lastActiveDate": "2026-01-11"
       },
       "profile": {
         "displayName": "user2",
@@ -72,35 +109,36 @@
         "privacy": {
           "showStats": true
         }
-      }
+      },
+      "purchaseHistory": []
     },
     {
       "id": 3,
       "username": "QueenB2",
       "password": "12345",
       "email": "someemail@gmail.com",
-      "totalPoints": 0,
+      "totalPoints": 40,
       "weeklyCounts": {
         "reportPost": 0,
-        "safetyTips": 0,
+        "safetyTips": 5,
         "reportGood": 0,
         "simulation": 0
       },
       "monthlyCounts": {
         "reportPost": 0,
-        "safetyTips": 0,
+        "safetyTips": 5,
         "reportGood": 0,
         "simulation": 0
       },
       "weekKey": "2026-W02",
       "monthKey": "2026-01",
       "achievedGoal": false,
-      "lastReportTime": null,
+      "lastReportTime": "2026-01-11T20:11:01.024Z",
       "monthlyGoalAchieved": false,
       "streak": {
-        "current": 1,
-        "best": 1,
-        "lastActiveDate": "2026-01-10"
+        "current": 2,
+        "best": 2,
+        "lastActiveDate": "2026-01-11"
       },
       "profile": {
         "displayName": "QueenB2",
@@ -109,7 +147,16 @@
         "privacy": {
           "showStats": true
         }
-      }
+      },
+      "purchaseHistory": [
+        {
+          "purchaseId": 1768162339445,
+          "itemId": "iPhone",
+          "itemName": "iPhone 17",
+          "pricePaid": 10,
+          "date": "2026-01-11T20:12:19.445Z"
+        }
+      ]
     },
     {
       "id": 4,
@@ -120,12 +167,14 @@
       "weeklyCounts": {
         "reportPost": 0,
         "safetyTips": 1,
-        "reportGood": 1
+        "reportGood": 1,
+        "simulation": 0
       },
       "monthlyCounts": {
         "reportPost": 0,
         "safetyTips": 1,
-        "reportGood": 1
+        "reportGood": 1,
+        "simulation": 0
       },
       "weekKey": "2026-W02",
       "monthKey": "2026-01",
@@ -144,7 +193,8 @@
         "privacy": {
           "showStats": true
         }
-      }
+      },
+      "purchaseHistory": []
     },
     {
       "id": 5,
@@ -181,7 +231,8 @@
         "privacy": {
           "showStats": true
         }
-      }
+      },
+      "purchaseHistory": []
     }
   ],
   "safety-tips": [
@@ -201,17 +252,32 @@
     },
     {
       "id": "tip2",
-      "title": "Spotting Phishing Scams",
-      "text": "Phishing is when hackers send fake emails or texts to trick you into giving away your password. They often pretend to be a trusted brand like Instagram, Netflix, or your bank. To stay safe, always check the sender's actual email address. Hackers might use 'support@instagraam-security.com' instead of the real '@instagram.com'. Most importantly: Never click a link to 'verify your account' or 'update your payment' directly from an email. Always go to the official website by typing the address yourself into your browser.",
+      "title": "Protecting Your Private World",
+      "text": "Your digital footprint is made up of everything you post, and sometimes it shares more than you intend. To stay safe, avoid posting 'live' updates that show your current location, like a school logo, a street sign, or a geotagged photo of your favorite hangout. Wait until you've left the location to post about it! Also, keep your profiles private and regularly audit your 'Followers' list to ensure you actually know everyone who has access to your photos and stories.",
       "quiz": {
-        "question": "What is the safest way to visit a website if you receive an urgent security email?",
+        "question": "What is the safest way to share a photo from your favorite local cafe?",
         "options": [
-          "Click the link provided in the email",
-          "Reply to the email asking if it's real",
-          "Type the official website address directly into your browser",
-          "Download the attachment to see more details"
+          "Tag the cafe's location live so friends can find you",
+          "Post the photo later after you have already left the cafe",
+          "Include the street address in your caption",
+          "Send it to a public group chat"
         ],
-        "correctAnswer": "Type the official website address directly into your browser"
+        "correctAnswer": "Post the photo later after you have already left the cafe"
+      }
+    },
+    {
+      "id": "tip3",
+      "title": "Protecting Your Self-Image",
+      "text": "TikTok and Instagram algorithms are designed to show you 'perfection,' but much of it is AI-enhanced or filtered. Constant scrolling can trick your brain into 'Upward Comparison'—making you feel like you aren't thin, pretty, or successful enough. To stay safe, 'Audit your Feed': if an account makes you feel bad about your body or life, unfollow or hit 'Not Interested.' Remember, filters like 'Bold Glamour' don't just add makeup; they digitally bone-structure your face into something physically impossible.",
+      "quiz": {
+        "question": "What is 'Upward Social Comparison' on social media?",
+        "options": [
+          "Comparing yourself to people you think are 'better' or 'prettier' than you",
+          "Sharing your photos with older relatives",
+          "Liking a celebrity's post to help them get more views",
+          "Updating your app to the newest version"
+        ],
+        "correctAnswer": "Comparing yourself to people you think are 'better' or 'prettier' than you"
       }
     }
   ],
@@ -244,72 +310,26 @@
       "inStock": true
     }
   ],
-  "handlingSummaries": [
-    {
-      "phishing": {
-        "title": "How to handle suspicious delivery/payment messages",
-        "steps": [
-          "Don’t click links or pay fees directly from messages.",
-          "Verify through the official app/website by typing the address yourself.",
-          "Look for red flags: urgency, shortened links, unexpected payments.",
-          "Report the message as phishing and delete it."
-        ],
-        "whyThisWorks": [
-          "Scammers use urgency to make you act without thinking.",
-          "Short links can hide malicious websites.",
-          "Independent verification explains whether the message is real."
-        ]
-      },
-      "scam": {
-        "title": "How to handle verification-code and account takeover scams",
-        "steps": [
-          "Never share verification/login codes with anyone — ever.",
-          "Verify the request by calling your friend using a number you already have.",
-          "If they pressure you, assume the account is compromised.",
-          "Report the suspicious account and warn the real person via another channel."
-        ],
-        "whyThisWorks": [
-          "Those codes are basically the key to YOUR account.",
-          "Impersonators rely on urgency and guilt to bypass your judgment.",
-          "Verifying via a trusted channel breaks the scam."
-        ]
-      },
-      "harassment": {
-        "title": "How to handle harassment and toxic group chats",
-        "steps": [
-          "Don’t participate or amplify harassment, even as a joke.",
-          "Support the targeted person privately if you can.",
-          "Document evidence (screenshots, usernames, timestamps).",
-          "Use platform tools: report, block, mute, and leave if needed."
-        ],
-        "whyThisWorks": [
-          "Harassment escalates when it gets attention.",
-          "Support from bystanders reduces harm to the target.",
-          "Reporting creates accountability without escalating conflict."
-        ]
-      }
-    }
-  ],
   "scenarios": [
     {
-      "id": "sms_delivery_branch_01",
-      "category": "phishing",
-      "channel": "sms",
-      "title": "Delivery fee text",
+      "id": "fake_giveaway_01_youth",
+      "category": "scam",
+      "channel": "social_media",
+      "title": "You won a free iPhone!",
       "startNodeId": "n1",
       "nodes": [
         {
           "id": "n1",
-          "message": "Your package is held. Pay ₪8.90: bit.ly/3XxYz",
+          "message": "🎉 CONGRATS! You’ve been randomly selected to win a NEW iPhone! Just confirm in the next 10 minutes!",
           "options": [
             {
               "id": "o1",
-              "text": "Click the link",
+              "text": "Click the link to claim the prize",
               "nextNodeId": "n2"
             },
             {
               "id": "o2",
-              "text": "Check the official carrier app",
+              "text": "Check if the account is verified and ask a trusted adult",
               "nextNodeId": "good_end"
             },
             {
@@ -319,40 +339,176 @@
             }
           ],
           "redFlagsHere": [
-            "Shortened link",
-            "Unexpected fee"
+            "Too good to be true",
+            "Urgent countdown",
+            "Unknown or unverified account"
           ]
         },
         {
           "id": "n2",
-          "message": "Payment failed. Enter card details again to release package.",
+          "message": "Almost there! Enter your address and phone number to receive your prize.",
           "options": [
             {
               "id": "o1",
-              "text": "Enter card details",
+              "text": "Enter the details to get the prize",
               "nextNodeId": "bad_end"
             },
             {
               "id": "o2",
-              "text": "Stop and verify independently",
+              "text": "Close it, screenshot, block and report the account",
               "nextNodeId": "good_end"
             }
           ],
           "redFlagsHere": [
-            "Escalation to sensitive info",
-            "Pressure"
+            "Requests personal information",
+            "Pressure to act fast"
           ]
         }
       ],
       "endings": {
         "good_end": {
           "type": "safe",
-          "summary": "You avoided a suspicious link and verified through an official channel.",
+          "summary": "You spotted a fake giveaway and protected your personal information.",
           "pointsReward": 25
         },
         "bad_end": {
           "type": "unsafe",
-          "summary": "You shared sensitive information through an untrusted link.",
+          "summary": "Scammers use fake prizes to collect personal info. Never share details for ‘free’ giveaways.",
+          "pointsReward": 5
+        }
+      }
+    },
+    {
+      "id": "stranger_dm_01_youth",
+      "category": "online_safety",
+      "channel": "social_media",
+      "title": "Nice profile… how old are you?",
+      "startNodeId": "n1",
+      "nodes": [
+        {
+          "id": "n1",
+          "message": "Hey 😊 you seem really cool and mature for your age. How old are you?",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Tell them your age",
+              "nextNodeId": "n2"
+            },
+            {
+              "id": "o2",
+              "text": "Don’t reply. Block and report the account",
+              "nextNodeId": "good_end"
+            },
+            {
+              "id": "o3",
+              "text": "Ask a trusted adult what to do",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Stranger messaging",
+            "Commenting on age or maturity",
+            "Flattery"
+          ]
+        },
+        {
+          "id": "n2",
+          "message": "Wow 😏 you’re very grown up. Do you have Snapchat or WhatsApp?",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Give another app username",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Stop replying and block/report",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Moving to private apps",
+            "Sexualized language",
+            "Ignoring boundaries"
+          ]
+        }
+      ],
+      "endings": {
+        "good_end": {
+          "type": "safe",
+          "summary": "You avoided engaging with a stranger and kept your private information safe.",
+          "pointsReward": 30
+        },
+        "bad_end": {
+          "type": "unsafe",
+          "summary": "Sharing personal details with strangers can lead to grooming or harassment.",
+          "pointsReward": 0
+        }
+      }
+    },
+    {
+      "id": "game_trade_01_youth",
+      "category": "scam",
+      "channel": "gaming_chat",
+      "title": "Free game items!",
+      "startNodeId": "n1",
+      "nodes": [
+        {
+          "id": "n1",
+          "message": "I can give you free Robux/skins. Just log in here so I can send it.",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Click the link and log in",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Check the official game rules and ask a trusted adult",
+              "nextNodeId": "good_end"
+            },
+            {
+              "id": "o3",
+              "text": "Reply asking how it works",
+              "nextNodeId": "n2"
+            }
+          ],
+          "redFlagsHere": [
+            "Free items offer",
+            "Login outside official site",
+            "Unknown player"
+          ]
+        },
+        {
+          "id": "n2",
+          "message": "It’s safe, everyone does it. Hurry before the offer expires!",
+          "options": [
+            {
+              "id": "o1",
+              "text": "Log in quickly",
+              "nextNodeId": "bad_end"
+            },
+            {
+              "id": "o2",
+              "text": "Block/report the user and don’t click anything",
+              "nextNodeId": "good_end"
+            }
+          ],
+          "redFlagsHere": [
+            "Pressure",
+            "Trying to normalize risky behavior"
+          ]
+        }
+      ],
+      "endings": {
+        "good_end": {
+          "type": "safe",
+          "summary": "You protected your gaming account and didn’t share login details.",
+          "pointsReward": 25
+        },
+        "bad_end": {
+          "type": "unsafe",
+          "summary": "Logging in through fake sites lets scammers steal game accounts.",
           "pointsReward": 5
         }
       }
@@ -753,6 +909,37 @@
       "description": "Platform: Instagram\nLink: N/A\nWhy it’s good: This is ahelpful video on how to help your friends",
       "pointsEarned": 20,
       "timestamp": "2026-01-11T14:09:13.570Z"
+    },
+    {
+      "id": 1768140783509,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "Platform: Instagram\nLink: N/A\nWhat happened: I saw a girl harassing another girl and commenting mean things on her post",
+      "pointsEarned": 50,
+      "timestamp": "2026-01-11T14:13:03.509Z"
+    },
+    {
+      "id": 1768165470529,
+      "userID": 1,
+      "action": "reportPost",
+      "description": "Platform: TikTok\nLink: N/A\nDetails: I reported a group of friends harrasing a girl",
+      "pointsEarned": {
+        "pointsEarned": 0,
+        "monthlyGoalAchieved": false
+      },
+      "timestamp": "2026-01-11T21:04:30.529Z"
+    },
+    {
+      "id": 1768208873299,
+      "userID": 1,
+      "action": "reportGood",
+      "description": "Platform: TikTok\nLink: N/A\nDetails: I watched a video about how to help your firends in distress",
+      "pointsEarned": {
+        "pointsEarned": 20,
+        "monthlyGoalAchieved": false,
+        "newTotal": 3860
+      },
+      "timestamp": "2026-01-12T09:07:53.299Z"
     }
   ]
 }

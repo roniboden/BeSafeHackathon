@@ -1,384 +1,228 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../services/api";
-import { overlayStyle, modalStyle } from "./common/modalStyle";
-
-const pillStyle = {
-  fontSize: 12,
-  padding: "4px 8px",
-  border: "1px solid #ccc",
-  borderRadius: 999
-};
-
-const buttonStyle = {
-  textAlign: "left",
-  padding: "10px 12px",
-  borderRadius: 10,
-  border: "1px solid #ccc",
-  background: "white",
-  cursor: "pointer"
-};
+import "../styles/ModalStyle.css"; // Using the consolidated CSS file
 
 function SimulationModal({ isOpen, onClose, onSuccess }) {
-    const [category, setCategory] = useState("phishing");
-    const [scenario, setScenario] = useState(null);
-    const [node, setNode] = useState(null);
-    const [ending, setEnding] = useState(null);
-    const [result, setResult] = useState(null);
+  const [category, setCategory] = useState("scam");
+  const [scenario, setScenario] = useState(null);
+  const [node, setNode] = useState(null);
+  const [ending, setEnding] = useState(null);
+  const [result, setResult] = useState(null);
+  const [mode, setMode] = useState(null); 
 
-    const [advanced, setAdvanced] = useState(false);
-    const [userText, setUserText] = useState("");
-    const [aiPick, setAiPick] = useState(null);
+  const [userText, setUserText] = useState("");
+  const [coachMsg, setCoachMsg] = useState(null);
+  const [aiPick, setAiPick] = useState(null);
+  const [pendingOptionId, setPendingOptionId] = useState(null);
 
-    const [statusMsg, setStatusMsg] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+  const [statusMsg, setStatusMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     if (!isOpen) return;
+    setScenario(null); setNode(null); setEnding(null); setResult(null);
+    setStatusMsg(""); setIsLoading(false); setCategory("scam");
+    setMode(null); setUserText(""); setCoachMsg(null); setAiPick(null); setPendingOptionId(null);
+  }, [isOpen]);
 
-    // reset state when opened
-    setScenario(null);
-    setNode(null);
-    setEnding(null);
-    setResult(null);
-    setStatusMsg("");
-    setIsLoading(false);
-    setCategory("phishing");
-    setAdvanced(false);
-    setUserText("");
-    setAiPick(null);
-    }, [isOpen]);
-
-    useEffect(() => {
-    const onKey = (e) => {
-        if (e.key === "Escape") onClose();
-    };
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
     if (isOpen) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-    }, [isOpen, onClose]);
+  }, [isOpen, onClose]);
 
-    useEffect(() => {
-    if (!isOpen) return;
-    // load a scenario when modal opens or category changes
-    loadScenario(category);
-    }, [isOpen, category]);
+  useEffect(() => {
+    if (isOpen) loadScenario(category);
+  }, [isOpen, category]);
 
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
-    async function loadScenario(cat) {
-    setIsLoading(true);
-    setStatusMsg("");
-    setScenario(null);
-    setNode(null);
-    setEnding(null);
-    setResult(null);
+  async function loadScenario(cat) {
+    setIsLoading(true); setStatusMsg(""); setScenario(null); setNode(null);
+    setEnding(null); setResult(null); setMode(null); setUserText("");
+    setCoachMsg(null); setAiPick(null); setPendingOptionId(null);
 
     try {
-        const res = await api.get(`/simulations/scenario?category=${encodeURIComponent(cat)}`);
-        setScenario(res.data.scenario);
-        setNode(res.data.node);
+      const res = await api.get(`/simulations/scenario?category=${encodeURIComponent(cat)}`);
+      setScenario(res.data.scenario);
+      setNode(res.data.node);
     } catch (err) {
-        const msg = err?.response?.data?.error || err.message || "Failed to load scenario";
-        setStatusMsg(msg);
-    } finally {
-        setIsLoading(false);
-    }
-  }
-
-  async function step(optionId) {
-    if (!scenario || !node) return;
-
-    setIsLoading(true);
-    setStatusMsg("");
-
-    const user = JSON.parse(localStorage.getItem("besafe_user"));
-    const userId = user?.id;
-
-    try {
-      const res = await api.post("/simulations/step", {
-        scenarioId: scenario.id,
-        nodeId: node.id,
-        optionId,
-        userId
-      });
-
-      const data = res.data;
-
-      if (data.done) {
-        setEnding(data.ending);
-        setResult(data.result);
-        setNode(null);
-
-        // refresh dashboard stats (points) after completion
-        if (onSuccess) onSuccess();
-      } else {
-        setNode(data.node);
-      }
-    } catch (err) {
-      const msg = err?.response?.data?.error || err.message || "Failed to continue scenario";
-      setStatusMsg(msg);
+      setStatusMsg(err?.response?.data?.error || "Failed to load scenario");
     } finally {
       setIsLoading(false);
     }
   }
 
-  const headerTitle = ending
-    ? "Simulation Result"
-    : scenario
-      ? scenario.title
-      : "Safety Simulation";
+  async function step(optionId) {
+    if (!scenario || !node) return;
+    setIsLoading(true);
+    const user = JSON.parse(localStorage.getItem("besafe_user"));
+    try {
+      const res = await api.post("/simulations/step", {
+        scenarioId: scenario.id, nodeId: node.id, optionId, userId: user?.id
+      });
+      setUserText(""); setCoachMsg(null); setAiPick(null); setPendingOptionId(null);
+      if (res.data.done) {
+        setEnding(res.data.ending); setResult(res.data.result); setNode(null);
+        if (onSuccess) onSuccess();
+      } else {
+        setNode(res.data.node);
+      }
+    } catch (err) {
+      setStatusMsg(err?.response?.data?.error || "Error loading scenario");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function requestCoachSuggestion() {
+    setIsLoading(true); setCoachMsg(null); setAiPick(null);
+    try {
+      const res = await api.post("/simulations/coach", {
+        scenarioId: scenario.id, nodeId: node.id, userText
+      });
+      setCoachMsg(res.data.coach); setAiPick(res.data.suggestion);
+      setPendingOptionId(res.data?.suggestion?.optionId);
+      setUserText("");
+    } catch (err) {
+      setStatusMsg(err?.response?.data?.error || "Error moving to next step");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const headerTitle = ending ? "Simulation Result" : scenario?.title || "Safety Simulation";
 
   return (
-    <div style={overlayStyle} onMouseDown={onClose}>
-      <div style={modalStyle} onMouseDown={(e) => e.stopPropagation()}>
-        {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+    <div className="modal-overlay" onMouseDown={onClose}>
+      <div className="modal-card" onMouseDown={(e) => e.stopPropagation()}>
+        <div className="modal-header">
           <div>
-            <h2 style={{ margin: 0 }}>{headerTitle}</h2>
-
-            {/* Pills */}
+            <h2>{headerTitle}</h2>
             {!ending && scenario && (
-              <div style={{ display: "flex", gap: 8, marginTop: 6, flexWrap: "wrap" }}>
-                <span style={pillStyle}>{scenario.channel}</span>
-                <span style={pillStyle}>{scenario.category}</span>
+              <div className="pill-container">
+                <span className="pill-badge">{scenario.channel}</span>
+                <span className="pill-badge">{scenario.category}</span>
               </div>
             )}
           </div>
-
-          <button
-            onClick={onClose}
-            style={{ background: "transparent", border: "none", fontSize: 20, cursor: "pointer" }}
-            aria-label="Close"
-          >
-            ✕
-          </button>
+          <button className="modal-close-x" onClick={onClose}>✕</button>
         </div>
 
-        {/* Category + New scenario */}
-        {!ending && (
-          <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 14, flexWrap: "wrap" }}>
-            <label style={{ fontWeight: "bold" }}>Category:</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              disabled={isLoading}
-              style={{ padding: "8px 10px", borderRadius: 8, border: "1px solid #ccc" }}
-            >
-              <option value="phishing">Phishing</option>
-              <option value="scam">Scam</option>
-              <option value="harassment">Harassment</option>
-            </select>
-
-            <button
-              onClick={() => loadScenario(category)}
-              disabled={isLoading}
-              style={{
-                marginLeft: "auto",
-                padding: "8px 12px",
-                borderRadius: 8,
-                border: "1px solid #ccc",
-                backgroundColor: "white",
-                cursor: "pointer"
-              }}
-            >
-              New Scenario
-            </button>
-          </div>
-        )}
-
-        {/* Status */}
-        {statusMsg && (
-          <div style={{ marginTop: 12, color: "#b00020", fontWeight: "bold" }}>
-            {statusMsg}
-          </div>
-        )}
-
-        {/* Body */}
-        <div style={{ marginTop: 14 }}>
-          {isLoading && !scenario && <div>Loading...</div>}
-
-          {/* Active node */}
-                {scenario && node && (
-        <div style={{ border: "1px solid #ddd", borderRadius: 12, padding: 14 }}>
-            <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.5, marginBottom: 12 }}>
-            {node.message}
-            </div>
-
-            {/* NORMAL MODE OPTIONS */}
-            {!advanced && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {(node.options || []).map((opt) => (
-                <button
-                    key={opt.id}
-                    onClick={() => step(opt.id)}
-                    disabled={isLoading}
-                    style={{
-                    ...buttonStyle,
-                    opacity: isLoading ? 0.7 : 1
-                    }}
-                >
-                    {opt.text}
-                </button>
-                ))}
-            </div>
-            )}
-
-
-              {isLoading && <div style={{ marginTop: 12 }}>Working...</div>}
+        <div className="modal-body">
+          {!ending && (
+            <div className="category-row">
+              <label>Choose Category:</label>
+              <select 
+                className="modal-input-select" 
+                value={category} 
+                onChange={(e) => setCategory(e.target.value)}
+                disabled={isLoading}
+              >
+                <option value="scam">Scam</option>
+                <option value="harassment">Harassment</option>
+              </select>
+              <button className="btn-new-scenario" onClick={() => loadScenario(category)}>
+                New Scenario
+              </button>
             </div>
           )}
-            <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px solid #eee" }}>
-            <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <input
-                type="checkbox"
-                checked={advanced}
-                onChange={(e) => {
-                    setAdvanced(e.target.checked);
-                    setAiPick(null);
-                    setUserText("");
-                }}
-                disabled={isLoading}
-                />
-                Advanced: type what you would do
-            </label>
 
-            {advanced && (
-                <div style={{ marginTop: 10 }}>
-                <textarea
+          {statusMsg && <p className="error-msg">{statusMsg}</p>}
+
+          {isLoading && !scenario && <div className="loading-spinner">Loading Scenario...</div>}
+
+          {/* MODE CHOOSER - Side by Side Buttons */}
+          {!ending && scenario && node && mode === null && (
+            <div className="mode-selection-box">
+              <h3>How do you want to play?</h3>
+              <p>Choose a style. You can switch anytime.</p>
+              <div className="mode-btn-group">
+                <button className="auth-button mode-half-btn" onClick={() => setMode("quiz")}>
+                  Quiz Mode
+                </button>
+                <button className="btn-secondary mode-half-btn" onClick={() => setMode("free")}>
+                  Free Text + Coach
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ACTIVE SCENARIO - Ensuring classes persist */}
+          {!ending && scenario && node && mode !== null && (
+            <div className="scenario-active-box">
+              <div className="mode-switcher">
+                <button className="btn-text-only" onClick={() => setMode(mode === "quiz" ? "free" : "quiz")}>
+                  Switch to {mode === "quiz" ? "Free Text" : "Quiz Mode"}
+                </button>
+              </div>
+
+              {/* Message bubble from scenario */}
+              <div className="chat-bubble">
+                <strong>Scenario:</strong><br />
+                {node.message}
+              </div>
+
+              {mode === "quiz" ? (
+                <div className="quiz-options">
+                  {node.options?.map((opt) => (
+                    <button key={opt.id} className="quiz-opt-btn" onClick={() => step(opt.id)}>
+                      {opt.text}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="free-text-zone">
+                  <textarea
+                    className="modal-input"
                     value={userText}
                     onChange={(e) => setUserText(e.target.value)}
-                    placeholder="Type your response, how would you act in this situation?"
+                    placeholder="Type what you would do..."
                     disabled={isLoading}
-                    style={{ width: "95%", height: 90, borderRadius: 8, border: "1px solid #ccc", padding: 10 }}
-                />
-
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 10 }}>
-                    <button
-                    disabled={isLoading || userText.trim().length < 3}
-                    onClick={async () => {
-                        setIsLoading(true);
-                        setStatusMsg("");
-                        setAiPick(null);
-
-                        const user = JSON.parse(localStorage.getItem("besafe_user"));
-                        const userId = user?.id;
-
-                        try {
-                        const res = await api.post("/simulations/advanced-step", {
-                            scenarioId: scenario.id,
-                            nodeId: node.id,
-                            userText,
-                            userId
-                        });
-
-                        const data = res.data;
-                        setAiPick(data.ai || null);
-
-                        if (data.done) {
-                            setEnding(data.ending);
-                            setResult(data.result);
-                            setNode(null);
-                            if (onSuccess) onSuccess();
-                        } else {
-                            setNode(data.node);
-                        }
-
-                        setUserText("");
-                        } catch (err) {
-                        const msg = err?.response?.data?.error || err.message || "Advanced step failed";
-                        setStatusMsg(msg);
-                        } finally {
-                        setIsLoading(false);
-                        }
-                    }}
-                    style={{
-                        padding: "10px 14px",
-                        borderRadius: 8,
-                        border: "none",
-                        backgroundColor: "#7E57C2",
-                        color: "white",
-                        fontWeight: "bold",
-                        cursor: "pointer"
-                    }}
-                    >
-                    Use AI to choose
+                    style={{ height: "90px" }}
+                  />
+                  <div className="action-row">
+                    <button className="auth-button" disabled={isLoading || userText.length < 3} onClick={requestCoachSuggestion}>
+                      Ask Coach
                     </button>
-                </div>
+                    <button className="btn-secondary" disabled={!pendingOptionId} onClick={() => step(pendingOptionId)}>
+                      Continue
+                    </button>
+                  </div>
 
-                {aiPick && (
-                    <div style={{ marginTop: 10, background: "#f6f6f6", padding: 10, borderRadius: 10 }}>
-                    <strong>AI chose:</strong> {aiPick.chosenOptionText}
-                    {aiPick.reason ? <div style={{ marginTop: 6 }}><em>{aiPick.reason}</em></div> : null}
+                  {coachMsg && (
+                    <div className="coach-feedback">
+                      <strong>Coach:</strong>
+                      <p>{coachMsg.message}</p>
+                      {coachMsg.followUp && <em>{coachMsg.followUp}</em>}
                     </div>
-                )}
-                </div>
-            )}
-            </div>
-
-          {/* Ending */}
-          {ending && (
-            <div style={{ border: "1px solid #ddd", borderRadius: 12, padding: 14 }}>
-              <h3 style={{ marginTop: 0 }}>
-                {ending.type === "safe" ? "✅ Safe outcome" : "⚠️ Unsafe outcome"}
-              </h3>
-              <div style={{ whiteSpace: "pre-wrap" }}>{ending.summary}</div>
-
-              {result && (
-                <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: "#f6f6f6" }}>
-                  <strong>Points earned:</strong> {result.pointsEarned}
-                </div>
-              )}
-
-              {result?.handlingSummary && (
-                <div style={{ marginTop: 14 }}>
-                  <h4 style={{ marginBottom: 6 }}>{result.handlingSummary.title}</h4>
-                  <ul style={{ marginTop: 6 }}>
-                    {(result.handlingSummary.steps || []).map((s, idx) => (
-                      <li key={idx}>{s}</li>
-                    ))}
-                  </ul>
-
-                  {result.handlingSummary.whyThisWorks && (
-                    <>
-                      <h4 style={{ marginBottom: 6 }}>Why this works</h4>
-                      <ul style={{ marginTop: 6 }}>
-                        {result.handlingSummary.whyThisWorks.map((w, idx) => (
-                          <li key={idx}>{w}</li>
-                        ))}
-                      </ul>
-                    </>
+                  )}
+                  {aiPick && (
+                    <div className="coach-suggestion">
+                      <strong>Suggestion:</strong> {aiPick.optionText}
+                    </div>
                   )}
                 </div>
               )}
+            </div>
+          )}
 
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 16 }}>
-                <button
-                  onClick={() => loadScenario(category)}
-                  style={{
-                    padding: "10px 14px",
-                    borderRadius: 8,
-                    border: "1px solid #ccc",
-                    backgroundColor: "white",
-                    cursor: "pointer"
-                  }}
-                >
-                  Play again
-                </button>
-
-                <button
-                  onClick={onClose}
-                  style={{
-                    padding: "10px 14px",
-                    borderRadius: 8,
-                    border: "none",
-                    backgroundColor: "#00C851",
-                    color: "white",
-                    fontWeight: "bold",
-                    cursor: "pointer"
-                  }}
-                >
-                  Close
-                </button>
+          {/* ENDING */}
+          {ending && (
+            <div className="ending-box">
+              <div className={`ending-banner ${ending.type}`}>
+                {ending.type === "safe" ? "✅ Safe Outcome" : "⚠️ Unsafe Outcome"}
+              </div>
+              <p>{ending.summary}</p>
+              {result && (
+                <div className="points-display">
+                  🏆 Points earned: <strong>{result.pointsEarned}</strong>
+                </div>
+              )}
+              <div className="modal-footer">
+                <button className="btn-secondary" onClick={() => loadScenario(category)}>Play Again</button>
+                <button className="auth-button" onClick={onClose}>Close</button>
               </div>
             </div>
           )}
@@ -391,7 +235,7 @@ function SimulationModal({ isOpen, onClose, onSuccess }) {
 SimulationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func // call to refresh points/summary on dashboard
+  onSuccess: PropTypes.func
 };
 
 export default SimulationModal;

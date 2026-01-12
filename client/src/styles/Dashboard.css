@@ -1,0 +1,280 @@
+.dashboard-page {
+  background-color: #f0f2f5; /* Very light blue tint */
+  min-height: 100vh;
+  padding: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top Navigation Bar */
+.dashboard-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto 50px auto;
+}
+
+.user-welcome h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0;
+}
+
+.user-welcome p {
+  color: #a0aec0;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+/* Stats Grid */
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+}
+
+/* Progress Container at the Bottom */
+.monthly-progress-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.monthly-header {
+  text-align: center;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.streak-badge {
+  background-color: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+.points-pill {
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2);
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.points-pill:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.task-card-v3 {
+  background: white;
+  border-radius: 24px;
+  padding-bottom: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+.card-accent {
+  height: 6px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.task-card-v3 h3 {
+  font-size: 16px;
+  color: #1a202c;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.circular-progress {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.score-text {
+  font-size: 22px;
+  font-weight: 800;
+  fill: #1a202c;
+}
+
+.total-text {
+  font-size: 12px;
+  font-weight: 600;
+  fill: #a0aec0;
+}
+
+/* The Green "Goal Reached" Pill */
+.goal-badge {
+  background-color: #ecfdf5;
+  color: #10b981;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 15px;
+}
+
+.goal-badge .check {
+  background: #10b981;
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+.update-button {
+  width: 85%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.update-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.nav-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Streak Badge Refinement */
+.streak-badge {
+  background: #2d3748; /* Darker slate for contrast */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fire-icon {
+  font-size: 18px;
+}
+
+/* High-End Shop Button / Points Pill */
+.points-shop-button {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); /* Warm Amber/Orange */
+  border: none;
+  border-radius: 20px;
+  padding: 6px 20px 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.3);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.points-shop-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+}
+
+.points-icon-container {
+  background: rgba(255, 255, 255, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.points-label-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+}
+
+.points-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  opacity: 0.9;
+  margin-bottom: -2px;
+}
+
+.points-amount {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.profile-button {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.profile-button:hover {
+  border-color: #5c67f2; /* Matches your 'Create Account' link color */
+  transform: scale(1.05);
+}
+
+.profile-avatar {
+  background-color: #f1f5f9;
+  color: #5c67f2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+}
+

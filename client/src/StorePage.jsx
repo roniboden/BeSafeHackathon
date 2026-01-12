@@ -6,8 +6,10 @@ import ProductCard from './components/ProductCard';
 function StorePage() {
   const [balance, setBalance] = useState(0);
   const [products, setProducts] = useState([]);
+  const [history, setHistory] = useState([]); // New state for history
   const [loading, setLoading] = useState(true);
   const [successModal, setSuccessModal] = useState({ show: false, message: "" });
+  const [activeTab, setActiveTab] = useState('shop'); // Toggle between 'shop' and 'history'
 
   const navigate = useNavigate();
 
@@ -21,8 +23,9 @@ function StorePage() {
       const user = JSON.parse(userString);
 
       try {
-        const balanceRes = await api.get(`/reports/summary/${user.id}`);
-        setBalance(balanceRes.data.totalPoints);
+        const userRes = await api.get(`/reports/summary/${user.id}`);
+        setBalance(userRes.data.totalPoints);
+        setHistory(userRes.data.purchaseHistory || []); // Assuming summary returns history
 
         const productsRes = await api.get('/shop/items');
         setProducts(productsRes.data);
@@ -52,6 +55,7 @@ function StorePage() {
       });
 
       setBalance(response.data.newBalance);
+      setHistory(response.data.history);
 
       setSuccessModal({
         show: true,
@@ -65,35 +69,40 @@ function StorePage() {
 
   return (
     <div style={{ backgroundColor: '#f0f2f5', minHeight: '100vh', padding: '20px', fontFamily: 'Arial', direction: 'ltr' }}>
-
+      
+      {/* Header & Balance */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <button
-          onClick={() => navigate('/dashboard')}
-          className="back-button"
-        >
+        <button onClick={() => navigate('/dashboard')} className="back-button">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 18l-6-6 6-6" />
           </svg>
           <span>Back to Dashboard</span>
         </button>
 
+        <div style={{ display: 'flex', gap: '10px' }}>
+             <button 
+                onClick={() => setActiveTab('shop')}
+                style={{ padding: '10px 20px', borderRadius: '20px', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'shop' ? '#3182ce' : 'white', color: activeTab === 'shop' ? 'white' : '#4a5568' }}>
+                Shop
+             </button>
+             <button 
+                onClick={() => setActiveTab('history')}
+                style={{ padding: '10px 20px', borderRadius: '20px', border: 'none', cursor: 'pointer', backgroundColor: activeTab === 'history' ? '#3182ce' : 'white', color: activeTab === 'history' ? 'white' : '#4a5568' }}>
+                My History ({history.length})
+             </button>
+        </div>
+
         <div style={{ backgroundColor: 'white', padding: '10px 20px', borderRadius: '20px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)', fontWeight: 'bold' }}>
           Balance: <span style={{ color: '#f59e0b', fontSize: '1.2em' }}>{loading ? '...' : balance.toLocaleString()} 🪙</span>
         </div>
       </div>
 
-      <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Rewards Store 🎁</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>{activeTab === 'shop' ? 'Rewards Store 🎁' : 'Purchase History 📜'}</h1>
 
       {loading ? (
-        <p style={{ textAlign: 'center' }}>Loading products</p>
-      ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-          gap: '20px',
-          maxWidth: '1000px',
-          margin: '0 auto'
-        }}>
+        <p style={{ textAlign: 'center' }}>Loading...</p>
+      ) : activeTab === 'shop' ? (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px', maxWidth: '1000px', margin: '0 auto' }}>
           {products.map(product => (
             <ProductCard
               key={product.id}
@@ -110,6 +119,30 @@ function StorePage() {
               onBuy={handleBuy}
             />
           ))}
+        </div>
+      ) : (
+        /* History View */
+        <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: 'white', borderRadius: '15px', padding: '20px', boxShadow: '0 2px 10px rgba(0,0,0,0.05)' }}>
+            {history.length === 0 ? <p style={{ textAlign: 'center' }}>No purchases yet!</p> : (
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                        <tr style={{ borderBottom: '2px solid #edf2f7', textAlign: 'left' }}>
+                            <th style={{ padding: '12px' }}>Item</th>
+                            <th style={{ padding: '12px' }}>Price</th>
+                            <th style={{ padding: '12px' }}>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {history.map((item, idx) => (
+                            <tr key={idx} style={{ borderBottom: '1px solid #edf2f7' }}>
+                                <td style={{ padding: '12px' }}>{item.itemName}</td>
+                                <td style={{ padding: '12px', color: '#f59e0b', fontWeight: 'bold' }}>{item.pricePaid} 🪙</td>
+                                <td style={{ padding: '12px', fontSize: '0.9em', color: '#718096' }}>{new Date(item.date).toLocaleDateString()}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
         </div>
       )}
 

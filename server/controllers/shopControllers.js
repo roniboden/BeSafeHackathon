@@ -1,35 +1,62 @@
-import {readDB, saveDB} from '../utils/databaseHelper.js';
+import { readDB, saveDB } from '../utils/databaseHelper.js';
 
-// get the shop array from the database
-const getShopItems = (req, res) => {
+export const getShopItems = (req, res) => {
     const db = readDB();
-    res.status(200).json(db.shop || []);
+    res.json(db.shop || []); 
 };
 
-const purchaseItem = (req, res) => {
-    const { userID, itemID } = req.body;
+
+// Helper function (You can move this to a separate utility later)
+const sendPurchaseEmail = (userEmail, itemName) => {
+    console.log(`Email sent to ${userEmail}: You successfully bought ${itemName}!`);
+    // Logic for Nodemailer 
+};
+
+export const purchaseItem = (req, res) => {
+    const { userId, itemId } = req.body;
     const db = readDB();
 
-    //check for user and item in db
-    const user = db.users.find(u => u.id === parseInt(userID));
-    const item = db.shops.find(it => it.id === itemID);
-    //validate them
-    if(!user) return res.status(404).json({message: "User not found"});
-    if(!item) return res.status(404).json({message: "Item not found"});
-    //check if user has enough points
-    if(user.totalPoints < item.price){
-        return res.status(400).json({message: "Not enough points"});
+    const user = db.users.find(u => u.id == userId);
+    const item = db.shop.find(i => i.id === itemId);
+
+    if (!user || !item) {
+        return res.status(404).json({ message: "User or Item not found" });
     }
 
-    //if successful, update
-    user.totalPoints-=item.price;
-    // maybe add tracking to an item? inventory?
-    
+    if (user.totalPoints < item.price) {
+        return res.status(400).json({ message: "Insufficient points" });
+    }
+
+    // 1. Deduct points
+    user.totalPoints -= item.price;
+
+    // 2. Record the history
+    // We initialize the array if it doesn't exist yet
+    if (!user.purchaseHistory) {
+        user.purchaseHistory = [];
+    }
+
+    const purchaseRecord = {
+        purchaseId: Date.now(), // Unique-ish timestamp ID
+        itemId: item.id,
+        itemName: item.name,
+        pricePaid: item.price,
+        date: new Date().toISOString()
+    };
+
+    user.purchaseHistory.push(purchaseRecord);
+
+    // 3. Save to Database
     saveDB(db);
-    res.status(200).json({message: "Purchase successful"});
 
-};
+    // 4. Trigger Email (Asynchronous)
+    if (user.email) {
+        sendPurchaseEmail(user.email, item.name);
+    }
 
-export {getShopItems,
-        purchaseItem
+    res.json({ 
+        success: true, 
+        newBalance: user.totalPoints,
+        history: user.purchaseHistory 
+    });
 };

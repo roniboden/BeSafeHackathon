@@ -1,0 +1,117 @@
+/* Container to center the card on the screen */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* The white card container */
+.auth-card {
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.auth-icon {
+  margin-bottom: 10px;
+}
+
+.auth-title {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.auth-subtitle {
+  margin: 0 0 25px 0;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Input layout */
+.input-group {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.input-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.auth-input:focus {
+  border-color: #4A90E2;
+}
+
+/* Primary Green Button */
+.auth-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: opacity 0.2s;
+}
+
+.auth-button:hover {
+  opacity: 0.9;
+}
+
+/* Feedback Messages */
+.error-msg {
+  color: #FF4D4D;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.success-msg {
+  color: #10b981;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Footer / Switch between Login & Register */
+.auth-footer {
+  margin-top: 25px;
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  color: #5c67f2;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+  text-decoration: none;
+}

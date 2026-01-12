@@ -1,0 +1,456 @@
+/* Premium Backdrop with Blur */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2500;
+  animation: modalFade 0.25s ease-out;
+}
+
+/* The Modal Card */
+.modal-card {
+  width: min(500px, 92vw);
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: modalSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modal-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+
+.modal-close-x {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-close-x:hover { color: #1e293b; }
+
+.modal-body .input-field { margin-bottom: 20px; }
+
+.modal-body label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #1e293b;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: #10b981;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.btn-secondary {
+  background: none;
+  border: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.submit-report-btn {
+  background-color: #10b981; /* Dashboard Emerald Green */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-report-btn:hover { opacity: 0.9; }
+.error-msg { color: #ef4444; font-size: 13px; font-weight: 600; margin-top: 10px; }
+
+@keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalSlide { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.pill-container { display: flex; gap: 8px; margin-top: 8px; }
+.pill-badge { 
+  background: #f1f5f9; 
+  padding: 4px 12px; 
+  border-radius: 99px; 
+  font-size: 11px; 
+  font-weight: 700; 
+  color: #64748b;
+}
+
+.category-row { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  margin-bottom: 20px; 
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.modal-input-select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-new-scenario {
+  margin-left: auto;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chat-bubble {
+  background: #f1f5f9;
+  padding: 20px;
+  border-radius: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  border-bottom-left-radius: 2px;
+}
+
+.quiz-opt-btn {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quiz-opt-btn:hover { border-color: #7E57C2; background: #fdfaff; }
+
+.coach-feedback { 
+  background: #f0fdf4; 
+  padding: 15px; 
+  border-radius: 12px; 
+  margin-top: 15px; 
+  border-left: 4px solid #10b981;
+}
+
+.ending-banner {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.ending-banner.safe { color: #10b981; }
+.ending-banner.unsafe { color: #ef4444; }
+
+.points-display {
+  background: #fffbeb;
+  color: #b45309;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Container for the side-by-side buttons */
+.mode-btn-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Forces buttons to be equal width and not grow too large */
+.mode-half-btn {
+  flex: 1;
+  max-width: 220px;
+  white-space: nowrap;
+  padding: 12px 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0 !important; /* Overriding auth-button top margin if exists */
+}
+
+/* Ensure the scenario box maintains modal padding */
+.scenario-active-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Styling for the mode switcher link/button */
+.btn-text-only {
+  background: none;
+  border: none;
+  color: #7E57C2;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 0;
+  text-align: right;
+  width: 100%;
+}
+
+/* Quiz Specific Styling */
+.quiz-question-block {
+  margin-bottom: 24px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.question-text {
+  font-size: 15px;
+  color: #1e293b;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.quiz-options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.quiz-option-label:hover {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+/* Hide default radio, style custom one */
+.quiz-option-label input[type="radio"] {
+  accent-color: #10b981;
+  width: 18px;
+  height: 18px;
+}
+
+/* Result styles */
+.score-summary {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+/* Ensure action-row buttons are equal width side-by-side */
+.action-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.action-half-btn {
+  flex: 1;
+  justify-content: center;
+  margin-top: 0 !important;
+}
+
+/* Styling for the tip scenario */
+.chat-bubble {
+  background: #f1f5f9;
+  padding: 18px;
+  border-radius: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #1e293b;
+  font-weight: 500;
+  border-bottom-left-radius: 4px; /* Makes it look like a message bubble */
+}
+
+/* Highlighting the active selection */
+.quiz-option-label.active {
+  border-color: #10b981;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Explanation text in results */
+.explanation-text {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  margin-bottom: 20px;
+}
+
+/* Ensure buttons are identical size */
+.action-half-btn {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  padding: 12px;
+  margin-top: 0 !important;
+}
+
+/* Ensure the scenario looks like a digital message */
+.chat-bubble {
+  background: #f1f5f9;
+  padding: 18px;
+  border-radius: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #1e293b;
+  font-weight: 500;
+  border-bottom-left-radius: 4px;
+}
+
+/* Side-by-side button layout */
+.action-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.action-half-btn {
+  flex: 1; /* Forces both buttons to be exactly 50% width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  padding: 12px;
+  margin-top: 0 !important;
+}
+
+/* Radio Option Styling */
+.quiz-option-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quiz-option-label.active {
+  border-color: #10b981;
+  background: #f0fdf4;
+}
+
+/* Styling the result banners based on controller response */
+.ending-banner.safe { 
+  color: #10b981; 
+  background: #f0fdf4;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.ending-banner.unsafe { 
+  color: #ef4444; 
+  background: #fee2e2;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Ensuring the explanation/message text is readable */
+.explanation-text {
+  margin-top: 15px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.quiz-question-text {
+  font-size: 15px;
+  color: #1e293b;
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.explanation-text {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Success/Error Banners */
+.ending-banner {
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.ending-banner.safe { background-color: #f0fdf4; color: #10b981; }
+.ending-banner.unsafe { background-color: #fef2f2; color: #ef4444; }

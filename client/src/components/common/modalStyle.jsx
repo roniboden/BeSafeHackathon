@@ -19,10 +19,11 @@ export const modalStyle = {
   boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
 };
 
-
+  
 export const closeButtonStyle = {
   background: "transparent",
   border: "none",
   fontSize: 20,
   cursor: "pointer"
 };
+
