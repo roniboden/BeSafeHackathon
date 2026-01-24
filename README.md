@@ -168,3 +168,16 @@ The project demonstrates how product design, psychology, and technology can work
 Developed during the QueenB X AppsFlyer Hackathon 2026, focused on improving online safety and community awareness.  
 
 Built under time constraints as a functional MVP, prioritizing rapid iteration, working backend integration, and a complete user experience flow.
+
+---
+
+## 👥 Team
+
+This project was developed by:
+
+- **Dafna Tur**
+- **Roni Bodenstein**
+- **Adar Gerbi**
+
+Built collaboratively during the QueenB X AppsFlyer Hackathon 2026.
+
