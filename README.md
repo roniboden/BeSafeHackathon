@@ -1,21 +1,26 @@
-# QueenB X AppsFlyer - BeSafe Hackathon 2026
-# 🛡️ Ally – Gamified Internet Safety Platform  
+# QueenB X AppsFlyer – BeSafe Hackathon 2026
+
+## 🛡️ Ally – Gamified Internet Safety Platform  
 
 A full-stack web application developed during a hackathon, designed to promote responsible online behavior through gamification, simulations, and positive reinforcement.
 
-BeSafe turns digital safety into an engaging experience — rewarding users for reporting harmful content, learning safety practices, and contributing to a healthier online community.
+Ally turns digital safety into an engaging experience — rewarding users for reporting harmful content, learning safety practices, and contributing to a healthier online community.
 
-<img width="1917" height="877" alt="image" src="https://github.com/user-attachments/assets/b7305d2b-c984-401f-b947-b970044b123d" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b7305d2b-c984-401f-b947-b970044b123d" alt="Ally Dashboard Preview" width="900"/>
+</p>
 
 ---
 
 ## 🚀 Project Overview  
 
-BeSafe is a gamified web platform where users earn **Safety Points** by completing weekly safety-related activities.  
+Ally is a gamified web platform where users earn **Safety Points** by completing weekly safety-related activities.  
 
 Instead of focusing on punishment, the platform encourages **proactive and positive digital engagement** through goals, rewards, and visible progress tracking.
 
 Users accumulate points throughout the month and can redeem them in an integrated rewards shop.
+
+The web application is fully responsive and works seamlessly on both **desktop and mobile devices**, ensuring accessibility and engagement across platforms.
 
 ---
 
@@ -35,7 +40,18 @@ The main dashboard provides:
 - 🏆 Goal reached indicators  
 - 📈 Monthly progress bar  
 
-The interface is designed to feel motivating and game-like, reinforcing consistency and achievement.
+The interface is designed to feel motivating and game-like, reinforcing consistency and achievement across screen sizes.
+
+---
+
+### 📱 Mobile-Friendly Web App  
+
+- Fully responsive layout  
+- Optimized component rendering for smaller screens  
+- Touch-friendly interactions  
+- Maintains full functionality on mobile browsers  
+
+Users can complete simulations, track progress, and redeem rewards directly from their phones.
 
 ---
 
@@ -115,13 +131,12 @@ The platform applies behavioral design principles to encourage sustained positiv
 - React  
 - JavaScript  
 - CSS  
-- Component-based architecture  
+- Responsive design  
 
 ### Backend  
 - Node.js  
 - Express  
 - REST API  
-
 
 ---
 
@@ -137,7 +152,7 @@ The platform applies behavioral design principles to encourage sustained positiv
 
 ## 🎯 Purpose & Impact  
 
-BeSafe explores how gamification and behavioral design can:
+Ally explores how gamification and behavioral design can:
 
 - Encourage responsible digital participation  
 - Increase online accountability  
@@ -150,10 +165,6 @@ The project demonstrates how product design, psychology, and technology can work
 
 ## 🏆 Hackathon Context  
 
-Developed during a collaborative hackathon focused on improving online safety and community awareness.  
+Developed during the QueenB X AppsFlyer Hackathon 2026, focused on improving online safety and community awareness.  
 
 Built under time constraints as a functional MVP, prioritizing rapid iteration, working backend integration, and a complete user experience flow.
-
----
-
-
